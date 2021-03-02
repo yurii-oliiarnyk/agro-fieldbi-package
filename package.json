@@ -1,0 +1,15 @@
+{
+  "name": "agro-package",
+  "version": "1.0.0",
+  "description": "React-native package for agro projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^17.0.1",
+    "react-native": "^0.63.4"
+  }
+}
