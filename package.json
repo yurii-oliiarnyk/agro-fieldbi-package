@@ -2,9 +2,17 @@
   "name": "agro-package",
   "version": "1.0.0",
   "description": "React-native package for agro projects",
-  "main": "index.js",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "src/index.ts",
+  "types": "lib/typescript/index.d.ts",
+  "files": [
+    "lib/",
+    "src/"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "bob build"
   },
   "author": "",
   "license": "ISC",
@@ -22,10 +30,28 @@
     "@typescript-eslint/parser": "^4.16.1",
     "eslint": "^7.21.0",
     "metro-react-native-babel-preset": "^0.65.1",
+    "react-native-builder-bob": "^0.17.1",
     "typescript": "^4.2.2"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ],
+    "files": [
+      "src/"
+    ]
   }
 }

@@ -10,7 +10,7 @@ export const AppButton: React.FC<AppButtonTypes> = props => {
 
   return (
     <View>
-      <Text style={{ color: 'red' }}>{title}</Text>
+      <Text>{title}</Text>
     </View>
   );
 };
