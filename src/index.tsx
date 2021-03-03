@@ -1,5 +1,8 @@
 export { COLORS } from './colors';
 
+// Provider
+export { Provider } from './Provider';
+
 // UI
 export { Button } from './UI/Button';
 export { Link } from './UI/Link';
