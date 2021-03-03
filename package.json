@@ -21,7 +21,13 @@
     "i18n-js": "^3.8.0",
     "react": "16.13.1",
     "react-native": "0.63.4",
-    "react-native-paper": "^4.7.2"
+    "react-native-paper": "^4.7.2",
+    "react-native-vector-icons": "^8.0.0",
+    "@react-native-community/geolocation": "^2.0.2",
+    "@react-native-mapbox-gl/maps": "^8.1.0",
+    "react-native-flash-message": "^0.1.22",
+    "react-native-safe-area-context": "^3.1.9",
+    "@turf/turf": "^6.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
@@ -30,6 +36,7 @@
     "@types/i18n-js": "^3.8.0",
     "@types/react": "^17.0.2",
     "@types/react-native": "^0.63.50",
+    "@types/react-native-vector-icons": "^6.4.6",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "eslint": "^7.21.0",
@@ -41,7 +48,13 @@
     "react": "*",
     "react-native": "*",
     "react-native-paper": "*",
-    "i18n-js": "*"
+    "i18n-js": "*",
+    "react-native-vector-icons": "*",
+    "@react-native-community/geolocation": "*",
+    "@react-native-mapbox-gl/maps": "*",
+    "react-native-flash-message": "*",
+    "react-native-safe-area-context": "*",
+    "@turf/turf": "*"
   },
   "react-native-builder-bob": {
     "source": "src",

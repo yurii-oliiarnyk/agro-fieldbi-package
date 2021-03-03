@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
+import FlashMessage from 'react-native-flash-message';
 import { setTranslations, TranslationsTypes } from './translations';
 
 type ProviderProps = {
@@ -13,5 +14,10 @@ export const Provider: React.FC<ProviderProps> = props => {
     setTranslations(translations);
   }, [translations]);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <FlashMessage position="bottom" />
+    </>
+  );
 };
