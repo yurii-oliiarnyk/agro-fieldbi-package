@@ -11,3 +11,5 @@ export { Loader } from './UI/Loader';
 export { TouchableFeedback } from './UI/TouchableFeedback';
 export { Typography } from './UI/Typography';
 export { Avatar } from './UI/Avatar';
+export { Checkbox } from './UI/Checkbox';
+export { Radiobox } from './UI/Radiobox';
