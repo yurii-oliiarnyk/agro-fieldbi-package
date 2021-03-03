@@ -13,7 +13,10 @@ export type TranslationsTypes = {
 };
 
 export const setTranslations = (translations: TranslationsTypes): void => {
-  const mergedTranslations = { en: { ...translations.en, ...en }, uk: { ...translations, ...uk } };
+  const mergedTranslations = {
+    en: { ...translations.en, ...en },
+    uk: { ...translations.uk, ...uk },
+  };
 
   i18n.translations = mergedTranslations;
   i18n.locale = 'uk';
