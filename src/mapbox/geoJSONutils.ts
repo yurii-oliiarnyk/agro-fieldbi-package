@@ -1,18 +1,16 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as turf from '@turf/turf';
+import { BBox, Position } from '@turf/helpers';
 
-type PointType = [number, number];
-type PolygonType = Array<Array<PointType>>;
+type PolygonType = Position[][];
 
-export const centerOfPoligon = (coordinates: PolygonType) => {
+export const centerOfPoligon = (coordinates: PolygonType): Position => {
   const polygon = turf.polygon(coordinates);
   const center = turf.pointOnFeature(polygon);
 
   return center.geometry.coordinates;
 };
 
-export const getFitBounds = (coordinates: PolygonType[]) => {
+export const getFitBounds = (coordinates: PolygonType[]): BBox => {
   const featCollection = {
     type: 'FeatureCollection',
     features: [],
@@ -30,13 +28,13 @@ export const getFitBounds = (coordinates: PolygonType[]) => {
   return bbox;
 };
 
-export const getMapGeoJsonData = (entities: any[]) => {
+export const getMapGeoJsonData = (entities: (LandType & FieldType)[]) => {
   const data = {
     type: 'FeatureCollection',
     features: [],
   };
 
-  entities.forEach((entitie: { id: any; name: any; landNumber: any; coordinates: any }) => {
+  entities.forEach(entitie => {
     data.features.push({
       type: 'Feature',
       properties: {
@@ -53,9 +51,13 @@ export const getMapGeoJsonData = (entities: any[]) => {
   return data;
 };
 
-export const getFieldsNameGeoJsonData = (
-  fields: { id: number; coordinates: PolygonType; name: string }[]
-) => {
+type FieldType = {
+  id: number;
+  coordinates: PolygonType;
+  name: string;
+};
+
+export const getFieldsNameGeoJsonData = (fields: FieldType[]) => {
   const data = {
     type: 'FeatureCollection',
     features: [],
@@ -84,9 +86,13 @@ export const getFieldsNameGeoJsonData = (
   return data;
 };
 
-export const getLandsNameGeoJsonData = (
-  lands: { id: number; coordinates: PolygonType; landNumber: string }[]
-) => {
+type LandType = {
+  id: number;
+  coordinates: PolygonType;
+  landNumber: string;
+};
+
+export const getLandsNameGeoJsonData = (lands: LandType[]) => {
   const data = {
     type: 'FeatureCollection',
     features: [],
