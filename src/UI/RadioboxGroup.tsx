@@ -23,7 +23,7 @@ type RadioboxGroupTypes = {
     label: string;
     value: string;
   }>;
-  active?: string;
+  active: string;
   type?: 'vertical' | 'horizontal';
   onChange: (value: string) => void;
 };
