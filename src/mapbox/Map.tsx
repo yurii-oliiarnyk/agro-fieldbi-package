@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, ReactNode } from 'react';
+import React, { useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import MapboxGL, { CameraProps } from '@react-native-mapbox-gl/maps';
 import { View, StyleSheet } from 'react-native';
 import {
@@ -50,13 +50,13 @@ export const Map: React.FC<MapTypes> = props => {
   const camera = useRef(null);
   const map = useRef(null);
 
-  const flyToUserLocation = async () => {
+  const flyToUserLocation = useCallback(async () => {
     const location = await getDevicePosition();
 
     if (location) {
-      camera.current.flyTo(location);
+      camera.current?.flyTo(location);
     }
-  };
+  }, []);
 
   const tryShowUserPointer = async () => {
     const hasLocationPermissions = await checkLocationPermissions();
