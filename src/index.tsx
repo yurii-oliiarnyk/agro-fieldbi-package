@@ -19,10 +19,10 @@ export { Modal } from './UI/Modal';
 // mapbox
 export { Map } from './mapbox/Map';
 export { Marker } from './mapbox/Marker';
-export {
-  centerOfPoligon,
-  getFieldsNameGeoJsonData,
-  getFitBounds,
-  getLandsNameGeoJsonData,
-  getMapGeoJsonData,
-} from './mapbox/geoJSONutils';
+// export {
+//   centerOfPoligon,
+//   getFieldsNameGeoJsonData,
+//   getFitBounds,
+//   getLandsNameGeoJsonData,
+//   getMapGeoJsonData,
+// } from './mapbox/geoJSONutils';
