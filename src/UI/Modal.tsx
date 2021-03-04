@@ -24,12 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Modal: React.FC<ModalTypes> & {
-  Title: unknown;
-  Content: unknown;
-  Actions: unknown;
-  ActionsButton: unknown;
-} = (props): JSX.Element => {
+export const Modal = (props: ModalTypes): JSX.Element => {
   const { visible, setVisible, children, loading } = props;
 
   const hideModal = () => setVisible(false);
