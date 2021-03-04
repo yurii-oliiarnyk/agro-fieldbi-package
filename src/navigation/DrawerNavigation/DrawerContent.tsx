@@ -64,7 +64,7 @@ export const DrawerContent: React.FC<
       ]}
     >
       <View>
-        <ImageBackground style={styles.heroBg} source={require('../../assets/images/hero-bg.jpg')}>
+        <ImageBackground style={styles.heroBg} source={require('../../assets/hero-bg.jpg')}>
           <View style={styles.heroOverlay}>
             {user && (
               <View style={styles.userInfo}>
