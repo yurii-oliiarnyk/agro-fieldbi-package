@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import FlashMessage from 'react-native-flash-message';
+import { NavigationContainer } from '@react-navigation/native';
 import { setTranslations, TranslationsTypes } from './translations';
 
 type ProviderProps = {
@@ -17,8 +18,10 @@ export const Provider: React.FC<ProviderProps> = props => {
 
   return (
     <PaperProvider>
-      {children}
-      <FlashMessage position="bottom" />
+      <NavigationContainer>
+        {children}
+        <FlashMessage position="bottom" />
+      </NavigationContainer>
     </PaperProvider>
   );
 };
