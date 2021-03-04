@@ -32,4 +32,4 @@ export { Marker } from './mapbox/Marker';
 // } from './mapbox/geoJSONutils';
 
 // types
-export { UserType } from './types';
+export * from './types';
