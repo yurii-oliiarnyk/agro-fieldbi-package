@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
+import 'react-native-gesture-handler';
 import { Provider as PaperProvider } from 'react-native-paper';
 import FlashMessage from 'react-native-flash-message';
 import { NavigationContainer } from '@react-navigation/native';
