@@ -15,9 +15,7 @@ export const defaultZoom = 4;
 export const defaultBbox = [21.51123046875, 49.439556958940855, 40.80322265625, 49.25346477497736];
 export const defaultMaxZoomLevel = 15;
 
-export type LayerStyleType = 'satellite' | 'default';
-
-export const getLayerStyle = (style: LayerStyleType) => {
+export const getLayerStyle = (style: string) => {
   const fieldTextColor = style === 'satellite' ? '#fff' : '#111';
   const landsMarkerColor = style === 'default' ? '#111' : '#fff';
 

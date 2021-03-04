@@ -10,7 +10,6 @@ import { LocationControl, TopControlsWrapper, StyleControl } from './controls';
 
 import {
   styles as mapStyles,
-  LayerStyleType,
   LayerStyle,
   getLayerStyle,
   satelliteTiles,
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
 
 export const Map: React.FC<MapTypes> = props => {
   const { children, cameraSettings, ...mapProps } = props;
-  const [currentMapStyle, setCurrentMapStyle] = useState<LayerStyleType>('default');
+  const [currentMapStyle, setCurrentMapStyle] = useState('default');
   const [showCadastralLayer, setShowCadastralLayer] = useState(false);
   const [showUserLocation, setShowUserLocation] = useState(false);
   const camera = useRef(null);
@@ -81,7 +80,7 @@ export const Map: React.FC<MapTypes> = props => {
       <TopControlsWrapper>
         <StyleControl
           style={currentMapStyle}
-          setStyle={setCurrentMapStyle}
+          setStyle={style => setCurrentMapStyle(style)}
           showCadastralLayer={showCadastralLayer}
           setShowCadastralLayer={setShowCadastralLayer}
         />

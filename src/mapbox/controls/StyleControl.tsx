@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 
 type StyleControlTypes = {
   style: string;
-  setStyle: (style: 'default' | 'satellite') => void;
+  setStyle: (value: string) => void;
   showCadastralLayer?: boolean;
   setShowCadastralLayer: (visible: boolean) => void;
 };
