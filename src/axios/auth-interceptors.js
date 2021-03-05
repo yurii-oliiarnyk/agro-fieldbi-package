@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from './axios';
+import axios from './index';
 import { TOKEN_KEY, DOMAIN_KEY, getAPI } from '../config';
 
 export const setupAuthInterceptors = onUnauthenticated => {
