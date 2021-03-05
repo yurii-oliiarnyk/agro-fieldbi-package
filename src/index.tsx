@@ -19,17 +19,15 @@ export { HeaderButton } from './UI/HeaderButton';
 
 // navigation
 export { DrawerNavigator, DrawerButton } from './navigation/DrawerNavigation';
+export { bottomTabOptions, stackNavigationOptions } from './navigation/styles';
 
 // mapbox
 export { Map } from './mapbox/Map';
 export { Marker } from './mapbox/Marker';
-// export {
-//   centerOfPoligon,
-//   getFieldsNameGeoJsonData,
-//   getFitBounds,
-//   getLandsNameGeoJsonData,
-//   getMapGeoJsonData,
-// } from './mapbox/geoJSONutils';
+export * from './mapbox/geoJSONutils';
 
 // types
 export * from './types';
+
+// components
+export { FilterScreen } from './components/FilterScreen/FilterScreen';
