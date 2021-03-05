@@ -35,6 +35,8 @@ export default {
     search: {
       lands: 'Назва ділянки',
       fields: 'Назва поля',
+      fieldsNotFound: 'Полів не знайдено',
+      landsNotFound: 'Ділянок не знайдено',
     },
   },
 };

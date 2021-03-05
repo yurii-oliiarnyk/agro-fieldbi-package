@@ -41,12 +41,4 @@ export * from './types';
 
 // components
 export { FilterScreen } from './components/FilterScreen/FilterScreen';
-
-export { MonitoringCenterContractButton } from './monitoringCenter/MonitoringCenterContractButton';
-export { MonitoringCenterEntitiesSelect } from './monitoringCenter/MonitoringCenterEntitiesSelect';
-export { MonitoringCenterSearch } from './monitoringCenter/MonitoringCenterSearch/MonitoringCenterSearch';
-export { MonitoringCenterPopover } from './monitoringCenter/MonitoringCenterPopover';
-export { MonitoringCenterFilter } from './monitoringCenter/MonitoringCenterFilter/MonitoringCenterFilter';
-export { useMonitoringCenterStore } from './monitoringCenter/useStore/useStore';
-export { useActiveLands } from './monitoringCenter/useActiveLands';
-export { MonitoringCenter } from './monitoringCenter/MonitoringCenter';
+export { MonitoringCenterNavigator } from './monitoringCenter/MonitoringCenterNavigator';

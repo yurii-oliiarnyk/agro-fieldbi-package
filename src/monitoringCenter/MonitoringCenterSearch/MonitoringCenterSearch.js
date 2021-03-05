@@ -25,7 +25,9 @@ export const MonitoringCenterSearch = props => {
       ? i18n.t('monitoring.search.fields')
       : i18n.t('monitoring.search.lands');
   const emptyPlaceholder =
-    resourceName === 'fields' ? i18n.t('field.notExist') : i18n.t('land.notExist');
+    resourceName === 'fields'
+      ? i18n.t('monitoring.search.fieldsNotFound')
+      : i18n.t('monitoring.search.landsNotFound');
 
   const open = () => setVisible(true);
 
