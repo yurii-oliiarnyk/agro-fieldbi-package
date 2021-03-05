@@ -12,7 +12,6 @@ import { MonitoringCenterSearch } from './MonitoringCenterSearch/MonitoringCente
 import { MonitoringCenterEntitiesSelect } from './MonitoringCenterEntitiesSelect';
 import { MonitoringCenterPopover } from './MonitoringCenterPopover';
 import {
-  MonitoringCenterPopover,
   getMapGeoJsonData,
   getFieldsNameGeoJsonData,
   getFitBounds,
