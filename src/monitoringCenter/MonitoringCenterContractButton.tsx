@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FAB, Badge } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../colors';
+import { SCREENS } from './config';
 
 const styles = StyleSheet.create({
   label: {
@@ -42,7 +43,7 @@ export const MonitoringCenterContractButton: React.FC<MonitoringCenterContractBu
         icon="filter-variant"
         onPress={() => {
           navigate({
-            name: 'MAP_FILTER',
+            name: SCREENS.MAP_FILTER,
             params,
           });
         }}
