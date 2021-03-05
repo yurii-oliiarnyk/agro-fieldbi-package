@@ -36,7 +36,9 @@
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.18.1",
     "react-native-vector-icons": "^8.0.0",
-    "react-navigation-header-buttons": "^6.2.1"
+    "react-navigation-header-buttons": "^6.2.1",
+    "@react-native-async-storage/async-storage": "^1.13.4",
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
@@ -73,7 +75,9 @@
     "react-native-screens": "*",
     "react-native-vector-icons": "*",
     "react-navigation-header-buttons": "*",
-    "formik": "*"
+    "formik": "*",
+    "@react-native-async-storage/async-storage": "*",
+    "axios": "*"
   },
   "react-native-builder-bob": {
     "source": "src",
