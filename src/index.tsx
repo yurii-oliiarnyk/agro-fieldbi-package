@@ -49,3 +49,4 @@ export { MonitoringCenterPopover } from './monitoringCenter/MonitoringCenterPopo
 export { MonitoringCenterFilter } from './monitoringCenter/MonitoringCenterFilter/MonitoringCenterFilter';
 export { useMonitoringCenterStore } from './monitoringCenter/useStore/useStore';
 export { useActiveLands } from './monitoringCenter/useActiveLands';
+export { MonitoringCenter } from './monitoringCenter/MonitoringCenter';

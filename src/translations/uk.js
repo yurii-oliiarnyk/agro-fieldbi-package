@@ -27,4 +27,14 @@ export default {
     noPermissions: 'Немає доступу',
     noLocationPermissions: 'Проблеми з доступом до геоданих пристрою',
   },
+  monitoring: {
+    pageName: 'Мапа',
+    showOnMap: 'Показати на мапі',
+    fields: 'Поля',
+    lands: 'Ділянки',
+    search: {
+      lands: 'Назва ділянки',
+      fields: 'Назва поля',
+    },
+  },
 };
