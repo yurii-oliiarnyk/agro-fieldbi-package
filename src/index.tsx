@@ -31,3 +31,6 @@ export * from './types';
 
 // components
 export { FilterScreen } from './components/FilterScreen/FilterScreen';
+
+export { MonitoringCenterContractButton } from './monitoringCenter/MonitoringCenterContractButton';
+export { MonitoringCenterEntitiesSelect } from './monitoringCenter/MonitoringCenterEntitiesSelect';
