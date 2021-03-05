@@ -4,7 +4,7 @@ import { Animated, StyleSheet, Platform, View, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Loader, TouchableFeedback } from 'agro-package';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useResource } from '../../../hooks/useResource';
+import { useResource } from '../hooks/useResource';
 
 export const MonitoringCenterPopover = props => {
   const { id, resourceName, onClose } = props;
