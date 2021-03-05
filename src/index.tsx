@@ -34,3 +34,4 @@ export { FilterScreen } from './components/FilterScreen/FilterScreen';
 
 export { MonitoringCenterContractButton } from './monitoringCenter/MonitoringCenterContractButton';
 export { MonitoringCenterEntitiesSelect } from './monitoringCenter/MonitoringCenterEntitiesSelect';
+export { MonitoringCenterSearch } from './monitoringCenter/MonitoringCenterSearch/MonitoringCenterSearch';
