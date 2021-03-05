@@ -33,6 +33,9 @@ export { Map } from './mapbox/Map';
 export { Marker } from './mapbox/Marker';
 export * from './mapbox/geoJSONutils';
 
+// utils
+export { displayHttpError } from './utils';
+
 // types
 export * from './types';
 

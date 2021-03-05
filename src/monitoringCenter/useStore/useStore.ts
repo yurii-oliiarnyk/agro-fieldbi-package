@@ -1,6 +1,7 @@
 import i18n from 'i18n-js';
 import { useReducer, useCallback, useMemo } from 'react';
 import axios from '../../axios';
+import { displayHttpError } from '../../utils';
 
 import {
   reducer,
@@ -51,9 +52,9 @@ export const useMonitoringCenterStore = (): StateType & {
       .catch(error => {
         fetchFieldsError();
 
-        //     const { status } = error.response;
-        //     const message = i18n.t('errors.monitoring.fieldLoad');
-        //     displayHttpError(message, status);
+        const { status } = error.response;
+        const message = i18n.t('errors.monitoring.fieldLoad');
+        displayHttpError(message, status);
       });
   }, [fetchFields, fetchFieldsSuccess, fetchFieldsError]);
 
@@ -71,9 +72,9 @@ export const useMonitoringCenterStore = (): StateType & {
       .catch(error => {
         fetchLandsError();
 
-        // const { status } = error.response;
-        // const message = i18n.t('errors.monitoring.fieldLoad');
-        // displayHttpError(message, status);
+        const { status } = error.response;
+        const message = i18n.t('errors.monitoring.fieldLoad');
+        displayHttpError(message, status);
       });
   }, [fetchLands, fetchLandsSuccess, fetchLandsError]);
 

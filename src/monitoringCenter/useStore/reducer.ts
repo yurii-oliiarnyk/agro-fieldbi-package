@@ -30,9 +30,7 @@ type ReducerActionType =
   | FetchLandsActionReturnType;
 
 export const reducer = (state: StateType, action: ReducerActionType): StateType => {
-  const { type, payload } = action;
-
-  switch (type) {
+  switch (action.type) {
     case FETCH_FIELDS_REQUEST:
       return {
         ...state,
@@ -46,11 +44,15 @@ export const reducer = (state: StateType, action: ReducerActionType): StateType 
       };
 
     case FETCH_FIELDS_SUCCESS:
+      const {
+        payload: { fields },
+      } = action;
+
       return {
         ...state,
         fieldsLoading: false,
         fieldsLoaded: true,
-        fields: payload.fields.filter((field: FieldType) => isCoordinatesValid(field.coordinates)),
+        fields: fields.filter((field: FieldType) => isCoordinatesValid(field.coordinates)),
       };
 
     case FETCH_LANDS_REQUEST:
@@ -66,11 +68,15 @@ export const reducer = (state: StateType, action: ReducerActionType): StateType 
       };
 
     case FETCH_LANDS_SUCCESS:
+      const {
+        payload: { lands },
+      } = action;
+
       return {
         ...state,
         landsLoading: false,
         landsLoaded: true,
-        lands: payload.lands.filter((land: LandType) => isCoordinatesValid(land.coordinates)),
+        lands: lands.filter((land: LandType) => isCoordinatesValid(land.coordinates)),
       };
 
     default:
