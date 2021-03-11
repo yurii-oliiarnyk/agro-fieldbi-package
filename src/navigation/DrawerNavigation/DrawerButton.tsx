@@ -4,7 +4,7 @@ import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { HeaderButton } from '../../UI/HeaderButton';
 
 type DrawerButtonType = {
-  tintColor: string;
+  tintColor?: string;
 };
 
 export const DrawerButton: React.FC<DrawerButtonType> = (props): JSX.Element => {

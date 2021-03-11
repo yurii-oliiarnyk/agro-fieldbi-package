@@ -19,6 +19,7 @@ export const stackNavigationOptions = {
     headerTitleAllowFontScaling: true,
     headerTintColor: Platform.OS === 'android' ? '#fff' : COLORS.MAIN,
     headerTruncatedBackTitle: i18n.t('ui.back'),
+    cardStyle: { backgroundColor: '#fff' },
   },
 };
 
