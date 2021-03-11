@@ -25,9 +25,16 @@ export { TextInput } from './UI/TextInput';
 export { AjaxSelect } from './UI/AjaxSelect';
 export { Select } from './UI/Select';
 export { FormItem } from './UI/FormItem';
+export { Switch } from './UI/Switch';
+
+// formik
+export { FormikAjaxSelect } from './UI/formik/FormikAjaxSelect';
+export { FormikSwitch } from './UI/formik/FormikSwitch';
+export { FormikTextInput } from './UI/formik/FormikTextInput';
 
 // hooks
 export { useMountedState } from './hooks/useMountedState';
+export { useResource } from './hooks/useResource';
 
 // navigation
 export { DrawerNavigator, DrawerButton } from './navigation/DrawerNavigation';
@@ -52,3 +59,4 @@ export { SCREENS as MONITORING_SCREENS } from './monitoringCenter/config';
 export * from './resource/ResourcesShow';
 export * from './resource/ResourcesList/ResourcesListItem';
 export * from './components/fields';
+export { FilterRangeInput } from './components/filters/FilterRangeInput';

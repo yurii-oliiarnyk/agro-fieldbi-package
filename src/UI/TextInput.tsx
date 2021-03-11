@@ -9,11 +9,12 @@ import {
 import { COLORS } from '../colors';
 
 export type TextInputTypes = {
-  Icon: ReactNode;
+  Icon?: ReactNode;
+  value?: string;
 } & TextInputProps;
 
 export const TextInput: React.FC<TextInputTypes> = props => {
-  const { Icon } = props;
+  const { Icon, value } = props;
 
   const inputStyles: ViewStyle[] = [styles.input];
 
@@ -27,6 +28,7 @@ export const TextInput: React.FC<TextInputTypes> = props => {
         style={inputStyles}
         placeholderTextColor="#CECECE"
         autoCapitalize="none"
+        value={value}
         {...props}
       />
       {Icon && (

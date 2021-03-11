@@ -45,7 +45,7 @@ export const Select: React.FC<SelectTypes> = props => {
     );
 
   const getValue = () => {
-    if (value === null) {
+    if (!value) {
       return;
     }
 

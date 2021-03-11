@@ -40,13 +40,13 @@ export const AjaxSelect: React.FC<AjaxSelectType> = props => {
 
     if (isSpecificAPI) {
       if (id) {
-        const combinedAPI = apiUrl.replace(':id', id);
+        const combinedAPI = apiUrl.replace(':id', `${id}`);
         loadEntities(combinedAPI);
       }
     } else {
       loadEntities(apiUrl);
     }
-  }, [id]);
+  }, [id, apiUrl]);
 
   return <Select loading={loading} disabled={loading} options={options} {...restProps} />;
 };
