@@ -31,6 +31,7 @@ export { Switch } from './UI/Switch';
 export { FormikAjaxSelect } from './UI/formik/FormikAjaxSelect';
 export { FormikSwitch } from './UI/formik/FormikSwitch';
 export { FormikTextInput } from './UI/formik/FormikTextInput';
+export { FormikRadioboxGroup } from './UI/formik/FormikRadioboxGroup';
 
 // hooks
 export { useMountedState } from './hooks/useMountedState';
@@ -60,3 +61,6 @@ export * from './resource/ResourcesShow';
 export * from './resource/ResourcesList/ResourcesListItem';
 export * from './components/fields';
 export { FilterRangeInput } from './components/filters/FilterRangeInput';
+export { FilterRadioSelect } from './components/filters/FilterRadioSelect';
+export { default as ResourceLocationFields } from './components/filters/ResourceLocationFields';
+export { SubdivisionListSelect } from './components/filters/SubdivisionListSelect';

@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
   },
 });
 
-type RadioboxGroupTypes = {
+export type RadioboxGroupTypes = {
   values: Array<{
     key: string;
     label: string;
-    value: string;
+    value?: string;
   }>;
-  active: string;
+  active?: string;
   type?: 'vertical' | 'horizontal';
   onChange: (value: string) => void;
 };
