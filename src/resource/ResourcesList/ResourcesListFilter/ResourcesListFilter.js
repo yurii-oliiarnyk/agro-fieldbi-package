@@ -33,14 +33,10 @@ const ResourcesListFilter = props => {
   }, [filterBy]);
 
   const filterResourceHandler = currentValues => {
-    console.log(initialValues, currentValues, isEqual(initialValues, currentValues));
+    const transformedValues = removeEmptyFilterValues(currentValues);
+    const stringifyValues = JSON.stringify(transformedValues);
 
-    if (!isEqual(initialValues, currentValues)) {
-      const transformedValues = removeEmptyFilterValues(currentValues);
-      const stringifyValues = JSON.stringify(transformedValues);
-
-      filterResource(stringifyValues);
-    }
+    filterResource(stringifyValues);
 
     navigation.goBack();
   };

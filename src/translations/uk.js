@@ -93,4 +93,18 @@ export default {
     villageCouncil: 'Сільрада',
     locality: 'Населенний пункт',
   },
+  locationFields: {
+    name: 'Населений пункт',
+    region: 'Область',
+    choseRegion: 'Оберіть область',
+    choseRegionAtFirst: 'Спершу оберіть область',
+    district: 'Район',
+    choseDistrict: 'Оберіть район',
+    choseDistrictAtFirst: 'Спершу оберіть район',
+    villageCouncil: 'Сільрада',
+    choseVillageCouncil: 'Оберіть сільраду',
+    choseVillageCouncilAtFirst: 'Спершу оберіть район',
+    locality: 'Населенний пункт',
+    choseLocality: 'Оберіть населенний пункт',
+  },
 };

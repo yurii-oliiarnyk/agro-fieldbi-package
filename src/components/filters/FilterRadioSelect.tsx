@@ -15,7 +15,7 @@ export const FilterRadioSelect: React.FC<FilterRadioSelectTypes> = props => {
     <FormItem label={label}>
       <FormikRadioboxGroup
         name={name}
-        type="vertical"
+        type="horizontal"
         values={[
           {
             key: 'undefined',

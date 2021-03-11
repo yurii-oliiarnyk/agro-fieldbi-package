@@ -29,13 +29,11 @@ export type RadioboxGroupTypes = {
 };
 
 export const RadioboxGroup: React.FC<RadioboxGroupTypes> = props => {
-  const { values, active, type = 'horizontal', onChange } = props;
+  const { values, active, type = 'vertical', onChange } = props;
 
   const wrapperStyles: ViewStyle[] = [styles.wrapper];
 
-  console.log(type);
-
-  if (type === 'vertical') {
+  if (type === 'horizontal') {
     wrapperStyles.push(styles.wrapperVertical);
   }
 
