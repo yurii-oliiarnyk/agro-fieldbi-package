@@ -27,6 +27,7 @@ export { useMountedState } from './hooks/useMountedState';
 // navigation
 export { DrawerNavigator, DrawerButton } from './navigation/DrawerNavigation';
 export { bottomTabOptions, stackNavigationOptions } from './navigation/styles';
+export { ResourcesNavigator } from './resource/ResourcesNavigator';
 
 // mapbox
 export { Map } from './mapbox/Map';

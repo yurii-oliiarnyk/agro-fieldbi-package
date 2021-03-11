@@ -8,9 +8,8 @@ import ResourcesListFilter from './ResourcesList/ResourcesListFilter/ResourcesLi
 
 const Stack = createStackNavigator();
 
-type ResourceNavigatorTypes = {
+type ResourcesNavigatorTypes = {
   name: string;
-  baseUrl: string;
   listOptions: {
     headerTitle: string;
     renderItem: (item: any) => ReactNode;
@@ -28,7 +27,7 @@ type ResourceNavigatorTypes = {
   };
 };
 
-export const ResourceNavigator: React.FC<ResourceNavigatorTypes> = props => {
+export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
   const { name, listOptions, filterOptions, showOptions } = props;
 
   return (

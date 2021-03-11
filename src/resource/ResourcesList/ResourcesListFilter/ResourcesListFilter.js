@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 import { removeEmptyFilterValues } from './utils';
 import { filterResource } from '../../../store';
-import { FilterScreen } from '../../../components/FilterScreen';
+import { FilterScreen } from '../../../components/FilterScreen/FilterScreen';
 
 const ResourcesListFilter = props => {
   const { parseFilterFields, transformFilterFields, filterResource, filterBy, children } = props;
