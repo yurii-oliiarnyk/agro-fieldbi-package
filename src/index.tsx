@@ -20,6 +20,7 @@ export { RadioboxGroup } from './UI/RadioboxGroup';
 export { Modal } from './UI/Modal';
 export { HeaderButton } from './UI/HeaderButton';
 export { Empty } from './UI/Empty';
+export { OutputNumber } from './UI/OutputNumber';
 
 // hooks
 export { useMountedState } from './hooks/useMountedState';
@@ -43,3 +44,5 @@ export * from './types';
 // components
 export { FilterScreen } from './components/FilterScreen/FilterScreen';
 export { MonitoringCenterNavigator } from './monitoringCenter/MonitoringCenterNavigator';
+export * from './resource/ResourcesShow';
+export * from './resource/ResourcesList/ResourcesListItem';

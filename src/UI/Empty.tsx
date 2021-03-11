@@ -1,9 +1,8 @@
+// @ts-nocheck
 import React from 'react';
 import i18n from 'i18n-js';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
-// import DataIcon from '../assets/data.svg';
-
-// TODO: need to add image
+import DataIcon from '../assets/data.svg';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -29,7 +28,7 @@ export const Empty: React.FC<EmptyTypes> = props => {
 
   return (
     <View style={[styles.wrapper, style]}>
-      {/* <DataIcon /> */}
+      <DataIcon />
       <Text style={styles.description}>{description}</Text>
     </View>
   );

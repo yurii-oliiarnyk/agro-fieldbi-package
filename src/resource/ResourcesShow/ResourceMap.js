@@ -1,15 +1,11 @@
 import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import i18n from 'i18n-js';
 import PropTypes from 'prop-types';
 import { Map, getFitBounds, Loader, TouchableFeedback } from 'agro-package';
-// import screens from '../../../../navigation/screens';
 
 export const ResourceMap = props => {
-  const { coordinates, children, loading, showLandsOnBounds, id, resourceName } = props;
-
-  const { navigate } = useNavigation();
+  const { coordinates, children, loading, goToMap } = props;
 
   const bounds = useMemo(() => {
     const fitBounds = getFitBounds([coordinates]);
@@ -32,28 +28,16 @@ export const ResourceMap = props => {
     );
   }
 
-  const onPressHandler = () => {
-    console.log('go to screen');
-    // navigate(screens.MonitoringCenterNavigator, {
-    //   screen: screens.MonitoringCenter,
-    //   params: {
-    //     selectedPolygon: {
-    //       id,
-    //       resourceName,
-    //     },
-    //     showLands: showLandsOnBounds,
-    //   },
-    // });
-  };
-
   return (
     <View style={styles.view}>
       <Map cameraSettings={{ defaultSettings: { bounds } }}>
         {({ layerStyle }) => children({ layerStyle })}
       </Map>
-      <TouchableFeedback activeOpacity={0.8} onPress={() => onPressHandler()} style={styles.button}>
-        <Text style={styles.buttonText}>{i18n.t('monitoring.showOnMap')}</Text>
-      </TouchableFeedback>
+      {goToMap && (
+        <TouchableFeedback activeOpacity={0.8} onPress={goToMap} style={styles.button}>
+          <Text style={styles.buttonText}>{i18n.t('monitoring.showOnMap')}</Text>
+        </TouchableFeedback>
+      )}
     </View>
   );
 };
@@ -83,7 +67,5 @@ ResourceMap.propTypes = {
   coordinates: PropTypes.array,
   children: PropTypes.func.isRequired,
   loading: PropTypes.bool,
-  showLandsOnBounds: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired,
-  resourceName: PropTypes.string.isRequired,
+  goToMap: PropTypes.func.isRequired,
 };
