@@ -33,6 +33,8 @@ const ResourcesListFilter = props => {
   }, [filterBy]);
 
   const filterResourceHandler = currentValues => {
+    console.log(initialValues, currentValues, isEqual(initialValues, currentValues));
+
     if (!isEqual(initialValues, currentValues)) {
       const transformedValues = removeEmptyFilterValues(currentValues);
       const stringifyValues = JSON.stringify(transformedValues);
