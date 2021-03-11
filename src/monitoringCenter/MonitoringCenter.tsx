@@ -79,6 +79,8 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
       return;
     }
 
+    console.log(selectedPolygon);
+
     setSelected(selectedPolygon);
     setShowLands(selectedPolygon.resourceName === 'lands');
   }, [selectedPolygon]);

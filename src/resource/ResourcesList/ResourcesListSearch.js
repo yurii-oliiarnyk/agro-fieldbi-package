@@ -26,20 +26,22 @@ ResourcesListSearchView.propTypes = {
   searchResource: PropTypes.func.isRequired,
 };
 
-export const ResourcesListSearch = connect(
-  (state, { name }) => {
-    return {
-      search: state[name].search,
-    };
-  },
-  (dispatch, { name }) => {
-    const boundActions = bindActionCreators(
-      {
-        searchResource: searchResource(name),
-      },
-      dispatch
-    );
+export const ResourcesListSearch = React.memo(
+  connect(
+    (state, { name }) => {
+      return {
+        search: state[name].search,
+      };
+    },
+    (dispatch, { name }) => {
+      const boundActions = bindActionCreators(
+        {
+          searchResource: searchResource(name),
+        },
+        dispatch
+      );
 
-    return { ...boundActions };
-  }
-)(ResourcesListSearchView);
+      return { ...boundActions };
+    }
+  )(ResourcesListSearchView)
+);

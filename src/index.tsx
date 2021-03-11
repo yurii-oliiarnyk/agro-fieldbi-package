@@ -46,3 +46,4 @@ export { FilterScreen } from './components/FilterScreen/FilterScreen';
 export { MonitoringCenterNavigator } from './monitoringCenter/MonitoringCenterNavigator';
 export * from './resource/ResourcesShow';
 export * from './resource/ResourcesList/ResourcesListItem';
+export * from './components/fields';
