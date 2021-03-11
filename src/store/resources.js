@@ -50,7 +50,7 @@ export const ReducerRecord = Record({
 });
 
 export function createResoucesReducer(resorcesName, EntitiesRecord) {
-  return (state, action): typeof ReducerRecord => {
+  return (state, action) => {
     const isInitializationCall = state === undefined;
     const shouldRunWrappedReducer = action.name === resorcesName || isInitializationCall;
     return shouldRunWrappedReducer ? reducer(state, action, EntitiesRecord) : state;
