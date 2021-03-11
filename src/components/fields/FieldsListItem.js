@@ -5,7 +5,7 @@ import i18n from 'i18n-js';
 import IrrigatedIcon from '../../assets/polyvne.svg';
 import NotIrrigatedIcon from '../../assets/ne_polyvne.svg';
 
-import { OutputNumber } from '../../OutputNumber';
+import { OutputNumber } from '../../UI/OutputNumber';
 import {
   ResourcesListItem,
   ResourcesListItemContour,
