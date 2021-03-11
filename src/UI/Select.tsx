@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import i18n from 'i18n-js';
 import { ActivityIndicator } from 'react-native';
@@ -45,17 +46,9 @@ export const Select: React.FC<SelectTypes> = props => {
     );
 
   const getValue = () => {
-    if (!value) {
-      return;
-    }
-
     const valueItem = transformedOptions.find(option => option.id === value);
 
-    if (!valueItem) {
-      return;
-    }
-
-    return valueItem.name;
+    return valueItem?.name;
   };
 
   const getPlaceholder = () => {
