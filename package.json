@@ -83,5 +83,16 @@
     "files": [
       "src/"
     ]
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yurii-oliiarnyk/agro-fieldbi-package.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yurii-oliiarnyk/agro-fieldbi-package/issues"
+  },
+  "homepage": "https://github.com/yurii-oliiarnyk/agro-fieldbi-package#readme"
 }
