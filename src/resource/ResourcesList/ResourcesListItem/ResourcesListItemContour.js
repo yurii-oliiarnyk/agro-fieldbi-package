@@ -72,10 +72,12 @@ export const ResourcesListItemContour = props => {
   const bounds = findBounds(coordinates);
   const [scale, offsetX, offsetY] = getScaleAndOffset(bounds);
 
-  coordinates = coordinates.map(([x, y]) => [
-    Number((x - bounds.minX) * scale).toFixed(0) + offsetX,
-    100 - Number((y - bounds.minY) * scale).toFixed(0) + offsetY,
-  ]);
+  coordinates = coordinates.map(([x, y]) => {
+    const scaledX = (x - bounds.minX) * scale - offsetX;
+    const scaledY = 100 - (y - bounds.minY) * scale - offsetY;
+
+    return [Number(scaledX).toFixed(0), Number(scaledY).toFixed(0)];
+  });
 
   const d = coordinates.map(([x, y]) => `${x},${y}`).join(' ');
 
