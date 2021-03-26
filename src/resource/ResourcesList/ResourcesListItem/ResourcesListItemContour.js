@@ -35,15 +35,22 @@ const findBounds = coordinates => {
   };
 };
 
-const getScale = bounds => {
+const getScaleAndOffset = bounds => {
   const { minX, maxX, minY, maxY } = bounds;
 
   const distanceX = maxX - minX;
   const distanceY = maxY - minY;
 
-  const maxDistance = distanceX > distanceY ? distanceX : distanceY;
+  const maxDistance = Math.max(distanceX, distanceY);
+  const scale = 100 / maxDistance; // 1,25
 
-  return 100 / maxDistance;
+  const getOffset = (distanceA, distanceB) =>
+    distanceA > distanceB ? ((distanceA - distanceB) * scale) / 2 : 0;
+
+  const offsetX = getOffset(distanceY, distanceX);
+  const offsetY = getOffset(distanceX, distanceY);
+
+  return [scale, offsetX, offsetY];
 };
 
 export const ResourcesListItemContour = props => {
@@ -63,11 +70,11 @@ export const ResourcesListItemContour = props => {
   [coordinates] = coordinates;
 
   const bounds = findBounds(coordinates);
-  const scale = getScale(bounds);
+  const [scale, offsetX, offsetY] = getScaleAndOffset(bounds);
 
   coordinates = coordinates.map(([x, y]) => [
-    Number((x - bounds.minX) * scale).toFixed(0),
-    100 - Number((y - bounds.minY) * scale).toFixed(0),
+    Number((x - bounds.minX) * scale).toFixed(0) + offsetX,
+    100 - Number((y - bounds.minY) * scale).toFixed(0) + offsetY,
   ]);
 
   const d = coordinates.map(([x, y]) => `${x},${y}`).join(' ');
