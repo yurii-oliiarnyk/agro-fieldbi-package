@@ -19,6 +19,8 @@ import {
 } from './config';
 import CadastralLayer from './CadastralLayer';
 
+import { MapContext } from './MapContext';
+
 MapboxGL.setAccessToken(TOKEN);
 
 const { MapView, Camera, UserLocation, RasterSource, RasterLayer } = MapboxGL;
@@ -94,21 +96,23 @@ export const Map: React.FC<MapTypes> = props => {
         ref={map}
         {...mapProps}
       >
-        {currentMapStyle === 'satellite' && (
-          <RasterSource id="satellite" tileUrlTemplates={satelliteTiles} tileSize={256}>
-            <RasterLayer id="satellite" aboveLayerID="background" />
-          </RasterSource>
-        )}
+        <MapContext.Provider value={{ map }}>
+          {currentMapStyle === 'satellite' && (
+            <RasterSource id="satellite" tileUrlTemplates={satelliteTiles} tileSize={256}>
+              <RasterLayer id="satellite" aboveLayerID="background" />
+            </RasterSource>
+          )}
 
-        {showCadastralLayer && <CadastralLayer />}
+          {showCadastralLayer && <CadastralLayer />}
 
-        {showUserLocation && <UserLocation onPress={() => flyToUserLocation()} />}
+          {showUserLocation && <UserLocation onPress={() => flyToUserLocation()} />}
 
-        <Camera ref={camera} maxZoomLevel={defaultMaxZoomLevel} {...cameraSettings} />
+          <Camera ref={camera} maxZoomLevel={defaultMaxZoomLevel} {...cameraSettings} />
 
-        {children({
-          layerStyle: getLayerStyle(currentMapStyle),
-        })}
+          {children({
+            layerStyle: getLayerStyle(currentMapStyle),
+          })}
+        </MapContext.Provider>
       </MapView>
     </View>
   );
