@@ -10,6 +10,7 @@ const Stack = createStackNavigator();
 
 type ResourcesNavigatorTypes = {
   name: string;
+  nameField?: string;
   listOptions: {
     headerTitle: string;
     renderItem: (item: any) => ReactNode;
@@ -28,7 +29,7 @@ type ResourcesNavigatorTypes = {
 };
 
 export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
-  const { name, listOptions, filterOptions, showOptions } = props;
+  const { name, nameField = 'name', listOptions, filterOptions, showOptions } = props;
 
   return (
     <Stack.Navigator {...stackNavigationOptions}>
@@ -45,6 +46,7 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
             showScreen={!!showOptions}
             filterScreen={!!filterOptions}
             name={name}
+            nameField={nameField}
             labels={listOptions.labels}
             renderItem={listOptions.renderItem}
           />

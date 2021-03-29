@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
+import _get from 'lodash.get';
 import { FlatList, View } from 'react-native';
 import { Loader } from '../../UI/Loader';
 import { Empty } from '../../UI/Empty';
@@ -16,6 +17,7 @@ type ResourceListTypes = {
   isLoadMorePossible: boolean;
   entities: any[];
   name: string;
+  nameField: string;
   renderItem: (item: any) => ReactNode;
   labels: {
     empty: string;
@@ -38,6 +40,7 @@ export const ResourcesList: React.FC<ResourceListTypes> = props => {
     isLoadMorePossible,
     labels,
     name,
+    nameField,
     navigation,
     showScreen,
     filterScreen,
@@ -53,7 +56,7 @@ export const ResourcesList: React.FC<ResourceListTypes> = props => {
     }
 
     navigation.push(`${name}-show`, {
-      title: item.name || item.landNumber || item.agreementNumber,
+      title: _get(item, nameField),
       resourceName: name,
       entitieId: item.id,
     });
