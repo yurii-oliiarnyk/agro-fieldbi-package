@@ -25,6 +25,7 @@ type ResourcesNavigatorTypes = {
   };
   showOptions?: {
     renderScreen: (entity: any) => ReactNode;
+    scrollable?: boolean;
   };
 };
 
@@ -74,7 +75,7 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
           }}
         >
           {showScreenProps => (
-            <ResourceShow name={name} {...showScreenProps}>
+            <ResourceShow name={name} scrollable={showOptions.scrollable} {...showScreenProps}>
               {entity => showOptions.renderScreen(entity)}
             </ResourceShow>
           )}

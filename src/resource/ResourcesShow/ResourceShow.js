@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchResource, resourceSelector } from '../../store';
 import { Loader } from '../../UI/Loader';
 
 export const ResourceShow = props => {
-  const { children, route, name } = props;
+  const { children, route, name, scrollable } = props;
 
   const {
     params: { entitieId: id },
@@ -25,5 +25,9 @@ export const ResourceShow = props => {
     return <Loader />;
   }
 
-  return <ScrollView>{children(entity)}</ScrollView>;
+  if (scrollable) {
+    return <ScrollView>{children(entity)}</ScrollView>;
+  }
+
+  return <View>{children(entity)}</View>;
 };
