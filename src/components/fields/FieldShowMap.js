@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from '@react-native-mapbox-gl/maps';
-import * as turf from '@turf/turf';
 import { ResourceMap } from '../../resource/ResourcesShow';
 import { axios } from '../../axios';
-import { getFieldsNameGeoJsonData, getMapGeoJsonData } from '../../mapbox/geoJSONutils';
+import { getMapGeoJsonData } from '../../mapbox/geoJSONutils';
+import { FieldMapLayer } from './FieldMapLayer';
 
 export const FieldShowMap = props => {
   const [landsLoading, setLandsLoading] = useState(false);
@@ -34,24 +34,19 @@ export const FieldShowMap = props => {
     return null;
   }
 
-  const fieldsData = turf.polygon(coordinates);
-
   return (
     <ResourceMap
-      id={entitie.id}
-      resourceName="fields"
       coordinates={coordinates}
       loading={landsLoading}
-      showLandsOnBounds={showLands}
+      linked={{
+        id: entitie.id,
+        resourceName: 'fields',
+        showLandsOnBounds: showLands,
+      }}
     >
       {({ layerStyle }) => (
         <>
-          <MapboxGL.ShapeSource id="fields" shape={fieldsData}>
-            <MapboxGL.FillLayer id="fields" style={layerStyle.fields.paint} />
-          </MapboxGL.ShapeSource>
-          <MapboxGL.ShapeSource id="fields-name" shape={getFieldsNameGeoJsonData([entitie])}>
-            <MapboxGL.SymbolLayer id="fields-name" style={layerStyle.fields.symbolLayout} />
-          </MapboxGL.ShapeSource>
+          <FieldMapLayer layerStyle={layerStyle} field={entitie} />
 
           {landsLoaded && (
             <MapboxGL.ShapeSource id="lands" shape={getMapGeoJsonData(lands)}>

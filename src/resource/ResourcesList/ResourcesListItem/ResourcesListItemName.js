@@ -6,7 +6,7 @@ import { TouchableFeedback } from '../../../UI/TouchableFeedback';
 import { COLORS } from '../../../colors';
 
 export const ResourcesListItemName = props => {
-  const { name, linked, resourceName, id } = props;
+  const { name, linked } = props;
 
   const navigation = useNavigation();
   const Wrapper = linked ? TouchableFeedback : View;
@@ -14,19 +14,15 @@ export const ResourcesListItemName = props => {
   return (
     <Wrapper
       onPress={() => {
-        console.log('press item');
-        // if (!linked) {
-        //   return;
-        // }
-        // navigation.navigate(screens.LandBank, {
-        //   screen: screens.LandBankShow,
-        //   initial: false,
-        //   params: {
-        //     title: name,
-        //     resourceName,
-        //     entitieId: id,
-        //   },
-        // });
+        if (!linked) {
+          return;
+        }
+
+        navigation.push(`${linked.name}-show`, {
+          title: name,
+          resourceName: linked.name,
+          entitieId: linked.id,
+        });
       }}
     >
       <Text style={styles.name} numberOfLines={1}>
@@ -46,7 +42,8 @@ const styles = StyleSheet.create({
 
 ResourcesListItemName.propTypes = {
   name: PropTypes.string.isRequired,
-  linked: PropTypes.bool,
-  resourceName: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  linked: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }),
 };

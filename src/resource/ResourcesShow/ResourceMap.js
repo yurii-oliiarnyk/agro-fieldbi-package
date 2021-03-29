@@ -10,7 +10,7 @@ import { Loader } from '../../UI/Loader';
 import { SCREENS } from '../../monitoringCenter/config';
 
 export const ResourceMap = props => {
-  const { coordinates, children, loading, showLandsOnBounds, id, resourceName } = props;
+  const { coordinates, children, loading, linked } = props;
 
   const { navigate } = useNavigation();
 
@@ -35,7 +35,9 @@ export const ResourceMap = props => {
     );
   }
 
-  const onPressHandler = () =>
+  const onPressHandler = () => {
+    const { id, resourceName, showLandsOnBounds } = linked;
+
     navigate(SCREENS.MAP_STACK, {
       screen: SCREENS.MAP,
       params: {
@@ -46,15 +48,18 @@ export const ResourceMap = props => {
         showLands: showLandsOnBounds,
       },
     });
+  };
 
   return (
     <View style={styles.view}>
       <Map cameraSettings={{ defaultSettings: { bounds } }}>
         {({ layerStyle }) => children({ layerStyle })}
       </Map>
-      <TouchableFeedback activeOpacity={0.8} onPress={() => onPressHandler()} style={styles.button}>
-        <Text style={styles.buttonText}>{i18n.t('monitoring.showOnMap')}</Text>
-      </TouchableFeedback>
+      {linked && (
+        <TouchableFeedback activeOpacity={0.8} onPress={onPressHandler} style={styles.button}>
+          <Text style={styles.buttonText}>{i18n.t('monitoring.showOnMap')}</Text>
+        </TouchableFeedback>
+      )}
     </View>
   );
 };
@@ -84,5 +89,9 @@ ResourceMap.propTypes = {
   coordinates: PropTypes.array,
   children: PropTypes.func.isRequired,
   loading: PropTypes.bool,
-  goToMap: PropTypes.func.isRequired,
+  linked: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    resourceName: PropTypes.string.isRequired,
+    showLandsOnBounds: PropTypes.bool,
+  }),
 };
