@@ -44,7 +44,6 @@ export { ResourcesNavigator } from './resource/ResourcesNavigator';
 
 // mapbox
 export { Map } from './mapbox/Map';
-export { MapContext } from './mapbox/MapContext';
 export { Marker } from './mapbox/Marker';
 export * from './mapbox/geoJSONutils';
 
