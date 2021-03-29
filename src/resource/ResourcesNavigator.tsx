@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { stackNavigationOptions } from '../navigation/styles';
-import { DrawerButton } from '../navigation/DrawerNavigation';
+import { DrawerButton, CreateButton } from '../navigation/DrawerNavigation';
 import { ResourceListWrapper } from './ResourcesList/ResourcesListWrapper';
 import { ResourceShow } from './ResourcesShow/ResourceShow';
 import ResourcesListFilter from './ResourcesList/ResourcesListFilter/ResourcesListFilter';
@@ -27,10 +27,21 @@ type ResourcesNavigatorTypes = {
     renderScreen: (entity: any) => ReactNode;
     scrollable?: boolean;
   };
+  createOptions?: {
+    headerTitle: string;
+    renderScreen: () => ReactNode;
+  };
 };
 
 export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
-  const { name, nameField = 'name', listOptions, filterOptions, showOptions } = props;
+  const {
+    name,
+    nameField = 'name',
+    listOptions,
+    filterOptions,
+    showOptions,
+    createOptions,
+  } = props;
 
   return (
     <Stack.Navigator {...stackNavigationOptions}>
@@ -39,6 +50,9 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
         options={{
           headerTitle: listOptions.headerTitle,
           headerLeft: buttonProps => <DrawerButton tintColor={buttonProps.tintColor} />,
+          headerRight: createOptions
+            ? buttonProps => <CreateButton name={name} tintColor={buttonProps.tintColor} />
+            : undefined,
         }}
       >
         {listScreenProps => (
@@ -79,6 +93,11 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
               {entity => showOptions.renderScreen(entity)}
             </ResourceShow>
           )}
+        </Stack.Screen>
+      )}
+      {createOptions && (
+        <Stack.Screen name={`${name}-create`} options={{ headerTitle: createOptions.headerTitle }}>
+          {createOptions.renderScreen}
         </Stack.Screen>
       )}
     </Stack.Navigator>
