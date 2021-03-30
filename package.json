@@ -2,10 +2,8 @@
   "name": "agro-package",
   "version": "1.0.0",
   "description": "React-native package for agro projects",
-  "main": "lib/commonjs/index.js",
-  "module": "lib/module/index.js",
-  "react-native": "src/index.tsx",
-  "source": "src/index.tsx",
+  "react-native": "src/index.ts",
+  "main": "src/index.ts",
   "types": "lib/typescript/index.d.ts",
   "files": [
     "lib/",
@@ -73,17 +71,12 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      "commonjs",
-      "module",
       [
         "typescript",
         {
           "project": "tsconfig.build.json"
         }
       ]
-    ],
-    "files": [
-      "src/"
     ]
   },
   "directories": {
