@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormikContext } from 'formik';
+import { Field } from 'formik';
 import { AjaxSelect } from '../AjaxSelect';
 import { ValueType, OptionType } from '../Select';
 
@@ -16,13 +16,16 @@ type FormikAjaxSelectType = {
 export const FormikAjaxSelect: React.FC<FormikAjaxSelectType> = props => {
   const { onChange = () => null, name, ...restProps } = props;
 
-  const { values, setFieldValue } = useFormikContext();
-  const value = values[name];
+  return (
+    <Field name={name}>
+      {({ field: { value }, form: { setFieldValue } }) => {
+        const handleChange = (newValue: ValueType): void => {
+          onChange(newValue);
+          setFieldValue(name, newValue);
+        };
 
-  const handleChange = (newValue: ValueType): void => {
-    onChange(newValue);
-    setFieldValue(name, newValue);
-  };
-
-  return <AjaxSelect onValueChange={handleChange} value={value} {...restProps} />;
+        return <AjaxSelect onValueChange={handleChange} value={value} {...restProps} />;
+      }}
+    </Field>
+  );
 };

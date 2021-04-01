@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormikContext } from 'formik';
+import { Field } from 'formik';
 import { Switch } from '../Switch';
 
 type FormikSwitchTypes = {
@@ -9,15 +9,17 @@ type FormikSwitchTypes = {
 export const FormikSwitch: React.FC<FormikSwitchTypes> = props => {
   const { name } = props;
 
-  const { values, setFieldValue } = useFormikContext();
-
-  const handleChange = (newValue: boolean) => {
-    if (newValue) {
-      setFieldValue(name, newValue);
-    } else {
-      setFieldValue(name, null);
-    }
-  };
-
-  return <Switch value={values[name]} onValueChange={handleChange} {...props} />;
+  return (
+    <Field name={name}>
+      {({ field: { value }, form: { setFieldValue } }) => {
+        return (
+          <Switch
+            value={value}
+            onValueChange={newValue => setFieldValue(name, newValue)}
+            {...props}
+          />
+        );
+      }}
+    </Field>
+  );
 };

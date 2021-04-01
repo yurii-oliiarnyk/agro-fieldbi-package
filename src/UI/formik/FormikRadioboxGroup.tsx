@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormikContext } from 'formik';
+import { Field } from 'formik';
 import { RadioboxGroup } from '../RadioboxGroup';
 
 type FormikRadioboxGroupTypes = {
@@ -17,13 +17,16 @@ type FormikRadioboxGroupTypes = {
 export const FormikRadioboxGroup: React.FC<FormikRadioboxGroupTypes> = props => {
   const { name, onChange = () => null, ...restProps } = props;
 
-  const { values, setFieldValue } = useFormikContext();
-  const value = values[name];
+  return (
+    <Field name={name}>
+      {({ field: { value }, form: { setFieldValue } }) => {
+        const onChangeHandler = value => {
+          onChange(value);
+          setFieldValue(name, value);
+        };
 
-  const onChangeHandler = value => {
-    onChange(value);
-    setFieldValue(name, value);
-  };
-
-  return <RadioboxGroup onChange={onChangeHandler} active={value} {...restProps} />;
+        return <RadioboxGroup onChange={onChangeHandler} active={value} {...restProps} />;
+      }}
+    </Field>
+  );
 };
