@@ -50,6 +50,7 @@ export * from './mapbox/geoJSONutils';
 
 // utils
 export { displayHttpError } from './utils';
+export * from './tools/device-location';
 export * from './helpers/date';
 
 // types
