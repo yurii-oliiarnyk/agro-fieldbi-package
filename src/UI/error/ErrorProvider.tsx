@@ -2,8 +2,8 @@ import React, { ReactNode } from 'react';
 import { ErrorContext } from './ErrorContext';
 
 type ErrorProviderProps = {
-  errors: any,
-  children: ReactNode,
+  errors: any;
+  children: ReactNode;
 };
 
 export const ErrorProvider: React.FC<ErrorProviderProps> = props => {

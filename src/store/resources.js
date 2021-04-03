@@ -1,5 +1,5 @@
 import { all, call, put, select, takeEvery, debounce } from 'redux-saga/effects';
-import { Record, OrderedMap } from 'immutable';
+import { Record, OrderedMap, Map } from 'immutable';
 import i18n from 'i18n-js';
 import { arrayToOrderedMap } from './utils';
 import axios from '../axios';
