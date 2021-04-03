@@ -4,6 +4,7 @@ import { stackNavigationOptions } from '../navigation/styles';
 import { DrawerButton, CreateButton } from '../navigation/DrawerNavigation';
 import { ResourceListWrapper } from './ResourcesList/ResourcesListWrapper';
 import { ResourceShow } from './ResourcesShow/ResourceShow';
+import { ResourceCreateProvider, ChildrenPropsType } from './ResourceCreate/ResourceCreateProvider';
 import ResourcesListFilter from './ResourcesList/ResourcesListFilter/ResourcesListFilter';
 
 const Stack = createStackNavigator();
@@ -29,7 +30,10 @@ type ResourcesNavigatorTypes = {
   };
   createOptions?: {
     headerTitle: string;
-    renderScreen: () => ReactNode;
+    labels: {
+      submitting: string;
+    };
+    renderScreen: (props: ChildrenPropsType) => ReactNode;
   };
 };
 
@@ -97,7 +101,11 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
       )}
       {createOptions && (
         <Stack.Screen name={`${name}-create`} options={{ headerTitle: createOptions.headerTitle }}>
-          {createOptions.renderScreen}
+          {() => (
+            <ResourceCreateProvider name={name} labels={createOptions.labels}>
+              {createOptions.renderScreen}
+            </ResourceCreateProvider>
+          )}
         </Stack.Screen>
       )}
     </Stack.Navigator>

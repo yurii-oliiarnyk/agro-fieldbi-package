@@ -42,6 +42,7 @@ export { useResource } from './hooks/useResource';
 export { DrawerNavigator, DrawerButton } from './navigation/DrawerNavigation';
 export { bottomTabOptions, stackNavigationOptions } from './navigation/styles';
 export { ResourcesNavigator } from './resource/ResourcesNavigator';
+export { ResourceCreate } from './resource/ResourceCreate';
 
 // mapbox
 export { Map } from './mapbox/Map';

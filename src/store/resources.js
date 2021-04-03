@@ -23,6 +23,11 @@ const LOAD_MORE_RESOURCES_START = `${prefix}LOAD_MORE_RESOURCES_START`;
 const LOAD_MORE_RESOURCES_SUCCESS = `${prefix}LOAD_MORE_RESOURCES_SUCCESS`;
 const LOAD_MORE_RESOURCES_ERROR = `${prefix}LOAD_MORE_RESOURCES_ERROR`;
 
+const CREATE_RESOURCE_SUCCESS = `${prefix}CREATE_RESOURCE_SUCCESS`;
+const CREATE_RESOURCE_ERROR = `${prefix}CREATE_RESOURCE_ERROR`;
+const CREATE_RESOURCE_REQUEST = `${prefix}CREATE_RESOURCE_REQUEST`;
+const CLEAR_RESOURCE_ERRORS = `${prefix}CLEAR_RESOURCE_ERRORS`;
+
 const FETCH_RESOURCE_REQUEST = `${prefix}FETCH_RESOURCE_REQUEST`;
 const FETCH_RESOURCE_SUCCESS = `${prefix}FETCH_RESOURCE_SUCCESS`;
 const FETCH_RESOURCE_ERROR = `${prefix}FETCH_RESOURCE_ERROR`;
@@ -47,6 +52,9 @@ export const ReducerRecord = Record({
   loadingMore: false,
   search: '',
   filterBy: '{}',
+  // create
+  createResourceSubmitting: false,
+  createResourceErrors: new Map({}),
 });
 
 export function createResoucesReducer(resorcesName, EntitiesRecord) {
@@ -61,6 +69,17 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
   const { type, payload } = action;
 
   switch (type) {
+    case CREATE_RESOURCE_REQUEST:
+      return state.set('createResourceSubmitting', true);
+
+    case CREATE_RESOURCE_SUCCESS:
+      return state.set('createResourceSubmitting', false);
+
+    case CREATE_RESOURCE_ERROR:
+      return state
+        .set('createResourceSubmitting', false)
+        .set('createResourceErrors', new Map(payload));
+
     case FETCH_RESOURCES_START:
       return state.set('loading', true);
 
@@ -175,6 +194,39 @@ export const filterResource = resourceName => filter => {
   };
 };
 
+const createResourceSuccess = resourceName => () => {
+  return {
+    name: resourceName,
+    type: CREATE_RESOURCE_SUCCESS,
+  };
+};
+
+const createResourceError = resourceName => errors => {
+  return {
+    name: resourceName,
+    type: CREATE_RESOURCE_ERROR,
+    payload: errors,
+  };
+};
+
+export const createResource = resourceName => ({ data, onSuccess }) => {
+  return {
+    name: resourceName,
+    type: CREATE_RESOURCE_REQUEST,
+    payload: {
+      data,
+      onSuccess,
+    },
+  };
+};
+
+export const clearResourceErrors = resourceName => () => {
+  return {
+    type: CLEAR_RESOURCE_ERRORS,
+    name: resourceName,
+  };
+};
+
 /**
  * Selectors
  */
@@ -190,6 +242,10 @@ export const filterBySelector = resourceName => state => state[resourceName].fil
 
 export const entitiesSelector = resourceName => state =>
   state[resourceName].entities.valueSeq().toArray();
+
+export const errorsSelector = errors => {
+  return errors.toJS();
+};
 
 export const paramsToString = params => {
   return Object.entries(params)
@@ -343,6 +399,30 @@ export function* fetchResourceSaga(action) {
   }
 }
 
+export function* addResourceSaga(action) {
+  const { payload, name } = action;
+  const { data, onSuccess } = payload;
+
+  try {
+    yield call(axios.post, `/api/v1/${name}`, { ...data });
+
+    yield put(createResourceSuccess(name)());
+
+    yield put(onSuccess());
+  } catch (error) {
+    const { status } = error.response;
+
+    if (status === 400) {
+      yield put(createResourceError(name)(error.response.data.errors));
+    } else {
+      yield put(createResourceError(name)());
+
+      const message = error.response?.data?.message ?? i18n.t('errors.resources.createError');
+      displayHttpError(message, status);
+    }
+  }
+}
+
 export function* searchResourceSaga(action) {
   const resourceName = action.name;
 
@@ -359,6 +439,7 @@ export function* saga() {
     takeEvery(LOAD_MORE_RESOURCES_REQUEST, loadMoreResourcesSaga),
     takeEvery(FETCH_RESOURCE_REQUEST, fetchResourceSaga),
     takeEvery(UPDATE_RESOURCES, fetchResourcesSaga),
+    takeEvery(CREATE_RESOURCE_REQUEST, addResourceSaga),
     debounce(200, SEARCH_RESOURCE, searchResourceSaga),
   ]);
 }

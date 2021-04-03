@@ -1,0 +1,1 @@
+export { ResourceCreate } from './ResourceCreate';
