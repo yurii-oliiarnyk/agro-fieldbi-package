@@ -32,11 +32,11 @@ export const ResourceCreateControls: React.FC<ResourceCreateControlsTypes> = pro
       <View style={styles.buttonWrap}>
         <View style={styles.button}>
           <Button type="outlined" onPress={onCancel}>
-            {i18n.t('ui.filter.cancel')}
+            {i18n.t('generals.cancel')}
           </Button>
         </View>
         <View style={styles.button}>
-          <Button onPress={onSubmit}>{i18n.t('ui.filter.action')}</Button>
+          <Button onPress={onSubmit}>{i18n.t('generals.create')}</Button>
         </View>
       </View>
     </View>
