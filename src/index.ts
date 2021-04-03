@@ -34,6 +34,7 @@ export { FormikSwitch } from './UI/formik/FormikSwitch';
 export { FormikTextInput } from './UI/formik/FormikTextInput';
 export { FormikRadioboxGroup } from './UI/formik/FormikRadioboxGroup';
 export { FormikSelect } from './UI/formik/FormikSelect';
+export { FormikFormItem } from './UI/formik/FormikFormItem';
 
 // hooks
 export { useMountedState } from './hooks/useMountedState';
