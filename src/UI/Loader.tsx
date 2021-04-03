@@ -1,5 +1,13 @@
-import React from 'react';
-import { View, ActivityIndicator, StyleSheet, ActivityIndicatorProps } from 'react-native';
+import React, { ReactNode } from 'react';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  ActivityIndicatorProps,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import { COLORS } from '../colors';
 
 const styles = StyleSheet.create({
@@ -10,14 +18,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  tipWrapper: {
+    marginTop: 4,
+  },
+  tip: {
+    fontSize: 16,
+  },
 });
 
-export const Loader: React.FC<ActivityIndicatorProps> = (props): JSX.Element => {
-  const { size = 'large', color = COLORS.MAIN, ...restProps } = props;
+type LoaderProps = {
+  wrapperStyle?: StyleProp<ViewStyle>;
+  tip?: string | ReactNode;
+} & ActivityIndicatorProps;
+
+export const Loader: React.FC<LoaderProps> = (props): JSX.Element => {
+  const { size = 'large', color = COLORS.MAIN, tip, wrapperStyle, ...restProps } = props;
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, wrapperStyle]}>
       <ActivityIndicator size={size} color={color} {...restProps} />
+      {tip && (
+        <View style={styles.tipWrapper}>
+          <Text style={styles.tip}>{tip}</Text>
+        </View>
+      )}
     </View>
   );
 };
