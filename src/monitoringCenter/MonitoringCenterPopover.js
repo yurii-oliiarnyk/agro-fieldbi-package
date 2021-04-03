@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Animated, StyleSheet, Platform, View, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Loader, TouchableFeedback } from 'agro-package';
+import { Loader } from '../UI/Loader';
+import { TouchableFeedback } from '../UI/TouchableFeedback';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useResource } from '../hooks/useResource';
 

@@ -7,7 +7,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Searchbar } from 'react-native-paper';
 import { MonitoringCenterSearchPopup } from './MonitoringCenterSearchPopup';
-import { TouchableFeedback } from 'agro-package';
+import { TouchableFeedback } from '../../UI/TouchableFeedback';
 
 export const MonitoringCenterSearch = props => {
   const { resourceName, entities, onSelected, loading } = props;

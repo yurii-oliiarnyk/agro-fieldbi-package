@@ -26,6 +26,7 @@ export { AjaxSelect } from './UI/AjaxSelect';
 export { Select } from './UI/Select';
 export { FormItem } from './UI/FormItem';
 export { Switch } from './UI/Switch';
+export { ErrorField } from './UI/error/ErrorField';
 
 // formik
 export { FormikAjaxSelect } from './UI/formik/FormikAjaxSelect';

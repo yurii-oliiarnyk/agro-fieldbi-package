@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
   },
 });
 
-type FormItemTypes = {
+export type FormItemTypes = {
   children: ReactNode;
-  label: string;
+  label?: string;
   type?: 'vertical' | 'horizontal';
 };
 
@@ -63,10 +63,12 @@ export const FormItem: React.FC<FormItemTypes> = props => {
 
   return (
     <View style={itemStyles}>
-      <Text style={labelStyles}>
-        {label}
-        {':'}
-      </Text>
+      {label && (
+        <Text style={labelStyles}>
+          {label}
+          {':'}
+        </Text>
+      )}
       {renderChild()}
     </View>
   );
