@@ -1,6 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { ReactNode } from 'react';
+import { View, Text, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { COLORS } from '../../colors';
 
 const styles = StyleSheet.create({
@@ -37,9 +36,27 @@ const styles = StyleSheet.create({
   link: {
     color: COLORS.MAIN,
   },
+  note: {
+    marginTop: 6,
+  },
 });
 
-export const ResourceTable = props => {
+type ResourceTableProps = {
+  data: Array<{
+    key: string;
+    name: string;
+    value: string | number | ReactNode;
+    html?: boolean;
+    render?: (
+      value: any,
+      styles: { textStyle: TextStyle; linkStyle: TextStyle }
+    ) => ReactNode | string | number;
+    note?: ReactNode | string;
+  }>;
+  style: StyleProp<ViewStyle>;
+};
+
+export const ResourceTable: React.FC<ResourceTableProps> = props => {
   const { data, style } = props;
 
   return (
@@ -48,18 +65,14 @@ export const ResourceTable = props => {
         .filter(row => row.value)
         .map((row, index) => {
           let { value } = row;
-          const { render } = row;
+          const { render, note } = row;
 
           const rowStyle = [styles.row];
           const hasBackground = index % 2;
 
-          if (hasBackground) {
-            rowStyle.push(styles.background);
-          }
-
           if (row.html) {
             const regex = /(<([^>]+)>)/gi;
-            value = value.replace(regex, '');
+            value = String(value).replace(regex, '');
           }
 
           const name = `${row.name}:`;
@@ -74,26 +87,17 @@ export const ResourceTable = props => {
           }
 
           return (
-            <View key={row.key} style={rowStyle}>
-              <View style={styles.column}>
-                <Text style={[styles.text, styles.name]}>{name}</Text>
+            <View key={row.key} style={hasBackground && styles.background}>
+              <View style={rowStyle}>
+                <View style={styles.column}>
+                  <Text style={[styles.text, styles.name]}>{name}</Text>
+                </View>
+                <View style={styles.column}>{value}</View>
+                {note && <View style={styles.note}>{note}</View>}
               </View>
-              <View style={styles.column}>{value}</View>
             </View>
           );
         })}
     </View>
   );
-};
-
-ResourceTable.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      value: PropTypes.node,
-      render: PropTypes.func,
-    })
-  ).isRequired,
-  style: PropTypes.object,
 };

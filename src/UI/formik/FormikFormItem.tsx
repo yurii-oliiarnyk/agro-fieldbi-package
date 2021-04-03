@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { FormItem, FormItemTypes } from '../FormItem';
 import { ErrorField } from '../error/ErrorField';
 
@@ -8,12 +7,12 @@ type FormikFormItemProps = {
 } & FormItemTypes;
 
 export const FormikFormItem: React.FC<FormikFormItemProps> = props => {
-  const { name, ...restProps } = props;
+  const { name, children, ...restProps } = props;
 
   return (
-    <View>
-      <FormItem {...restProps} />
+    <FormItem {...restProps}>
+      {children}
       <ErrorField name={name} />
-    </View>
+    </FormItem>
   );
 };

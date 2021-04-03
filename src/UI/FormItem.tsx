@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { View, Text, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   item: {
@@ -29,47 +29,20 @@ const styles = StyleSheet.create({
 export type FormItemTypes = {
   children: ReactNode;
   label?: string;
-  type?: 'vertical' | 'horizontal';
 };
 
 export const FormItem: React.FC<FormItemTypes> = props => {
-  const { children, label, type = 'horizontal' } = props;
-
-  const itemStyles: ViewStyle[] = [styles.item];
-  const labelStyles: TextStyle[] = [styles.label];
-
-  if (type === 'vertical') {
-    itemStyles.push(styles.itemHorizont);
-    labelStyles.push(styles.labelHorizont);
-  }
-
-  const renderChild = () => {
-    const isChildrenArray = Array.isArray(children);
-
-    if (!isChildrenArray) {
-      return children;
-    }
-
-    return (
-      <View style={styles.row}>
-        {(children as ReactNode[]).map((child, i) => (
-          <View style={styles.column} key={i}>
-            {child}
-          </View>
-        ))}
-      </View>
-    );
-  };
+  const { children, label } = props;
 
   return (
-    <View style={itemStyles}>
+    <View style={styles.item}>
       {label && (
-        <Text style={labelStyles}>
+        <Text style={styles.label}>
           {label}
           {':'}
         </Text>
       )}
-      {renderChild()}
+      {children}
     </View>
   );
 };
