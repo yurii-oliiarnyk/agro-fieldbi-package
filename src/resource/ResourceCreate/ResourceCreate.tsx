@@ -1,5 +1,6 @@
 import React, { useEffect, ReactNode } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import { Loader } from '../../UI/Loader';
 import { ResourceCreateControls } from './ResourceCreateControls';
@@ -15,6 +16,7 @@ type ResourcesCreateProps = {
   labels: {
     submitting: string;
   };
+  name: string;
   beforeSubmit: (values: any) => Promise<any>;
 };
 
@@ -28,6 +30,7 @@ export const ResourceCreate: React.FC<ResourcesCreateProps> = props => {
     initialValues,
     beforeSubmit,
     labels,
+    name,
   } = props;
 
   useEffect(() => {
@@ -36,8 +39,10 @@ export const ResourceCreate: React.FC<ResourcesCreateProps> = props => {
     };
   }, []);
 
+  const { navigate } = useNavigation();
+
   const onSuccess = () => {
-    console.log('go to list page');
+    navigate(`${name}-list`);
   };
 
   const submitHandler = values => {
@@ -55,15 +60,13 @@ export const ResourceCreate: React.FC<ResourcesCreateProps> = props => {
 
         return (
           <>
-            <View style={{ flex: 1, padding: 16 }}>
-              <ErrorProvider errors={errors}>
-                <ErrorFormMessage />
-                {children}
-              </ErrorProvider>
-            </View>
+            <ErrorProvider errors={errors}>
+              <ErrorFormMessage />
+              <ScrollView>{children}</ScrollView>
+            </ErrorProvider>
             <View style={{ marginTop: 'auto' }}>
               <ResourceCreateControls
-                onCancel={() => console.log('cancel')}
+                onCancel={() => navigate(`${name}-list`)}
                 onSubmit={() => submitForm()}
               />
             </View>

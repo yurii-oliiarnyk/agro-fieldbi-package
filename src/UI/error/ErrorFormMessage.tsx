@@ -3,15 +3,15 @@ import { View, Text, StyleSheet } from 'react-native';
 import { ErrorContext } from './ErrorContext';
 
 const styles = StyleSheet.create({
-  item: {
+  wrapper: {
     backgroundColor: '#fff1f0',
-    borderWidth: 1,
-    borderStyle: 'solid',
     borderColor: '#ffa39e',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
+    borderStyle: 'solid',
+    borderBottomWidth: 1,
     marginBottom: 8,
-    borderRadius: 4,
+  },
+  item: {
+    marginTop: 2,
   },
 });
 
@@ -24,13 +24,13 @@ export const ErrorFormMessage: React.FC = () => {
         }
 
         return (
-          <>
+          <View style={styles.wrapper}>
             {messages.map((message, index) => (
               <View key={index} style={styles.item}>
                 <Text>{message}</Text>
               </View>
             ))}
-          </>
+          </View>
         );
       }}
     </ErrorContext.Consumer>
