@@ -11,14 +11,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    paddingVertical: 4,
+  },
+  rowWrap: {
+    paddingVertical: 10,
     paddingHorizontal: 8,
   },
   background: {
     backgroundColor: COLORS.GREY_BG,
   },
   column: {
-    paddingVertical: 6,
     paddingHorizontal: 8,
   },
   text: {
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     color: COLORS.MAIN,
   },
   note: {
-    marginTop: 6,
+    paddingHorizontal: 8,
   },
 });
 
@@ -53,7 +54,7 @@ type ResourceTableProps = {
     ) => ReactNode | string | number;
     note?: ReactNode | string;
   }>;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const ResourceTable: React.FC<ResourceTableProps> = props => {
@@ -67,7 +68,6 @@ export const ResourceTable: React.FC<ResourceTableProps> = props => {
           let { value } = row;
           const { render, note } = row;
 
-          const rowStyle = [styles.row];
           const hasBackground = index % 2;
 
           if (row.html) {
@@ -87,14 +87,14 @@ export const ResourceTable: React.FC<ResourceTableProps> = props => {
           }
 
           return (
-            <View key={row.key} style={hasBackground && styles.background}>
-              <View style={rowStyle}>
+            <View key={row.key} style={[styles.rowWrap, hasBackground && styles.background]}>
+              <View style={styles.row}>
                 <View style={styles.column}>
                   <Text style={[styles.text, styles.name]}>{name}</Text>
                 </View>
                 <View style={styles.column}>{value}</View>
-                {note && <View style={styles.note}>{note}</View>}
               </View>
+              {note && <View style={styles.note}>{note}</View>}
             </View>
           );
         })}
