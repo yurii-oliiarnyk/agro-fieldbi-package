@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { stackNavigationOptions } from '../navigation/styles';
-import { DrawerButton, CreateButton } from '../navigation/DrawerNavigation';
+import { DrawerButton, CreateButton, EditButton } from '../navigation/DrawerNavigation';
 import { ResourceListWrapper } from './ResourcesList/ResourcesListWrapper';
 import { ResourceShow } from './ResourcesShow/ResourceShow';
 import { ResourceCreateProvider, ChildrenPropsType } from './ResourceCreate/ResourceCreateProvider';
@@ -28,12 +28,18 @@ type ResourcesNavigatorTypes = {
     renderScreen: (entity: any) => ReactNode;
     scrollable?: boolean;
   };
+  editOptions: {
+    headerTitle: string;
+    renderScreen: (entity: any) => ReactNode;
+    scrollable?: boolean;
+  };
   createOptions?: {
     headerTitle: string;
     labels: {
       submitting: string;
     };
     renderScreen: (props: ChildrenPropsType) => ReactNode;
+    hideButton?: boolean;
   };
 };
 
@@ -45,6 +51,7 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
     filterOptions,
     showOptions,
     createOptions,
+    editOptions,
   } = props;
 
   return (
@@ -54,9 +61,10 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
         options={{
           headerTitle: listOptions.headerTitle,
           headerLeft: buttonProps => <DrawerButton tintColor={buttonProps.tintColor} />,
-          headerRight: createOptions
-            ? buttonProps => <CreateButton name={name} tintColor={buttonProps.tintColor} />
-            : undefined,
+          headerRight:
+            createOptions && !createOptions.hideButton
+              ? buttonProps => <CreateButton name={name} tintColor={buttonProps.tintColor} />
+              : undefined,
         }}
       >
         {listScreenProps => (
@@ -89,6 +97,10 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
 
             return {
               headerTitle,
+              headerRight:
+                editOptions &&
+                  ? buttonProps => <EditButton name={name} tintColor={buttonProps.tintColor} />
+                  : undefined,
             };
           }}
         >
@@ -97,6 +109,16 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
               {entity => showOptions.renderScreen(entity)}
             </ResourceShow>
           )}
+        </Stack.Screen>
+      )}
+      {editOptions && (
+        <Stack.Screen
+          name={`${name}-edit`}
+          options={{
+            headerTitle: editOptions.headerTitle,
+          }}
+        >
+          {editOptions.renderScreen}
         </Stack.Screen>
       )}
       {createOptions && (
