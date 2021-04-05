@@ -32,6 +32,7 @@ type MonitoringCenterSelectedPolygon = {
 type MonitoringCenterTypes = {
   fields?: boolean;
   lands?: boolean;
+  onFlyToUser?: (userPoint: [number, number], fields: any, lands: any) => void;
   params?: {
     selectedPolygon?: MonitoringCenterSelectedPolygon;
     showLandsProps?: boolean;
@@ -43,6 +44,7 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
   const {
     fields: enableFields,
     lands: enableLands,
+    onFlyToUser,
     params: { selectedPolygon, showLandsProps, contractState } = {},
   } = props;
 
@@ -78,8 +80,6 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
     if (!selectedPolygon) {
       return;
     }
-
-    console.log(selectedPolygon);
 
     setSelected(selectedPolygon);
     setShowLands(selectedPolygon.resourceName === 'lands');
@@ -130,6 +130,10 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
   const fieldsData = useMemo(() => getMapGeoJsonData(fields), [fields]);
   const fieldsShape = useMemo(() => getFieldsNameGeoJsonData(fields), [fields]);
   const landsShape = useMemo(() => getMapGeoJsonData(lands), [lands]);
+
+  const onFlyToUserHandler = userPoint => {
+    onFlyToUser(userPoint, fieldsData, landsShape);
+  };
 
   const activeFieldsShape = useMemo(() => {
     const filteredFeatures = fieldsShape.features.filter(
@@ -248,6 +252,7 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
           },
           bounds,
         }}
+        onFlyToUser={onFlyToUserHandler}
       >
         {mapProps => {
           const { layerStyle } = mapProps;

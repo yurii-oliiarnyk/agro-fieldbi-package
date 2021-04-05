@@ -46,7 +46,7 @@ export const getLocationPermissions = async (): Promise<boolean> => {
   return hasPermission;
 };
 
-export const getDevicePosition = async (): Promise<[number, number] | number[] | null> => {
+export const getDevicePosition = async (): Promise<[number, number] | null> => {
   const getCurrentPosition = (enableHighAccuracy = true): Promise<GeolocationResponse> =>
     new Promise((resolve, reject) => {
       Geolocation.getCurrentPosition(
