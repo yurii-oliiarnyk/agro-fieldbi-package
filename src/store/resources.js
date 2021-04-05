@@ -3,6 +3,7 @@ import { Record, OrderedMap, Map } from 'immutable';
 import i18n from 'i18n-js';
 import { arrayToOrderedMap } from './utils';
 import axios from '../axios';
+import { showMessage } from 'react-native-flash-message';
 import { displayHttpError } from '../utils';
 
 export const moduleName = 'resource';
@@ -32,7 +33,9 @@ const FETCH_RESOURCE_REQUEST = `${prefix}FETCH_RESOURCE_REQUEST`;
 const FETCH_RESOURCE_SUCCESS = `${prefix}FETCH_RESOURCE_SUCCESS`;
 const FETCH_RESOURCE_ERROR = `${prefix}FETCH_RESOURCE_ERROR`;
 
+const UPDATE_RESOURCE_REQUEST = `${prefix}EDIT_RESOURCE_REQUEST`;
 const UPDATE_RESOURCE_SUCCESS = `${prefix}UPDATE_RESOURCE_SUCCESS`;
+const UPDATE_RESOURCE_ERROR = `${prefix}EDIT_RESOURCE_ERROR`;
 
 const SEARCH_RESOURCE = `${prefix}SEARCH_RESOURCE`;
 const FILTER_RESOURCE = `${prefix}FILTER_RESOURCE`;
@@ -55,6 +58,9 @@ export const ReducerRecord = Record({
   // create
   createResourceSubmitting: false,
   createResourceErrors: new Map({}),
+  // update
+  updateResourceErrors: new Map({}),
+  updateResourceSubmitting: false,
 });
 
 export function createResoucesReducer(resorcesName, EntitiesRecord) {
@@ -73,7 +79,12 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
       return state.set('createResourceSubmitting', true);
 
     case CREATE_RESOURCE_SUCCESS:
-      return state.set('createResourceSubmitting', false);
+      return state
+        .set('createResourceSubmitting', false)
+        .update('entities', entities =>
+          arrayToOrderedMap([payload], EntitiesRecord).merge(entities)
+        )
+        .set('total', total => total + 1);
 
     case CREATE_RESOURCE_ERROR:
       return state
@@ -121,6 +132,14 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
         arrayToOrderedMap([payload.data.data], EntitiesRecord).merge(entities)
       );
 
+    case UPDATE_RESOURCE_REQUEST:
+      return state.set('updateResourceSubmitting', true);
+
+    case UPDATE_RESOURCE_ERROR:
+      return state
+        .set('updateResourceSubmitting', false)
+        .set('updateResourceErrors', new Map(payload));
+
     case UPDATE_RESOURCE_SUCCESS:
       return state.setIn(['entities', payload.id], new EntitiesRecord(payload));
 
@@ -132,6 +151,11 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
 
     case UPDATE_RESOURCES:
       return state.set('page', START_PAGE).set('entities', new OrderedMap({})).set('total', 0);
+
+    case CLEAR_RESOURCE_ERRORS:
+      return state
+        .set('createResourceErrors', new Map({}))
+        .set('updateResourceErrors', new Map({}));
 
     default:
       return state;
@@ -170,6 +194,22 @@ export const fetchResource = resourceName => id => {
   };
 };
 
+export const updateResource = resourceName => ({resourceData, id, onSuccess, successMessage}) => {
+  return {
+    name: resourceName,
+    type: UPDATE_RESOURCE_REQUEST,
+    payload: { resourceData, id, onSuccess, successMessage },
+  };
+};
+
+export const updateResourceError = resourceName => payload => {
+  return {
+    name: resourceName,
+    type: UPDATE_RESOURCE_ERROR,
+    payload,
+  };
+};
+
 export const updateResourceSuccess = resourceName => payload => {
   return {
     name: resourceName,
@@ -194,10 +234,11 @@ export const filterResource = resourceName => filter => {
   };
 };
 
-const createResourceSuccess = resourceName => () => {
+const createResourceSuccess = resourceName => entity => {
   return {
     name: resourceName,
     type: CREATE_RESOURCE_SUCCESS,
+    payload: entity,
   };
 };
 
@@ -209,13 +250,14 @@ const createResourceError = resourceName => errors => {
   };
 };
 
-export const createResource = resourceName => ({ data, onSuccess }) => {
+export const createResource = resourceName => ({ data, onSuccess, successMessage }) => {
   return {
     name: resourceName,
     type: CREATE_RESOURCE_REQUEST,
     payload: {
       data,
       onSuccess,
+      successMessage,
     },
   };
 };
@@ -401,16 +443,19 @@ export function* fetchResourceSaga(action) {
 
 export function* addResourceSaga(action) {
   const { payload, name } = action;
-  const { data, onSuccess } = payload;
+  const { data, onSuccess, successMessage } = payload;
+  console.log('function*addResourceSaga -> payload', payload);
 
   try {
-    yield call(axios.post, `/api/v1/${name}`, { ...data });
+    const response = yield call(axios.post, `/api/v1/${name}`, { ...data });
 
-    yield put(createResourceSuccess(name)());
+    yield put(createResourceSuccess(name)(response.data.data));
 
-    yield put(onSuccess());
+    showMessage({ type: 'success', message: successMessage });
+    onSuccess();
   } catch (error) {
     const { status } = error.response;
+    console.log('function*addResourceSaga -> error.response', error, error.response);
 
     if (status === 400) {
       yield put(createResourceError(name)(error.response.data.errors));
@@ -418,6 +463,31 @@ export function* addResourceSaga(action) {
       yield put(createResourceError(name)());
 
       const message = error.response?.data?.message ?? i18n.t('errors.resources.createError');
+      displayHttpError(message, status);
+    }
+  }
+}
+
+export function* updateResourceSaga(action) {
+  const resourceName = action.name;
+  const { id, resourceData, onSuccess, successMessage } = action.payload;
+
+  try {
+    const response = yield call(axios.put, `/api/v1/${resourceName}/${id}`, resourceData);
+
+    yield put(updateResourceSuccess(resourceName)({ data: response.data.data }));
+
+    showMessage({ type: 'success', message: successMessage });
+    onSuccess();
+  } catch (error) {
+    const { status } = error.response;
+
+    if (status === 400) {
+      yield put(updateResourceError(resourceName)(error.response.data.errors));
+    } else {
+      yield put(updateResourceError(resourceName)());
+
+      const message = error.response?.data?.message ?? i18n.t('errors.resources.updateError');
       displayHttpError(message, status);
     }
   }
@@ -440,6 +510,7 @@ export function* saga() {
     takeEvery(FETCH_RESOURCE_REQUEST, fetchResourceSaga),
     takeEvery(UPDATE_RESOURCES, fetchResourcesSaga),
     takeEvery(CREATE_RESOURCE_REQUEST, addResourceSaga),
+    takeEvery(UPDATE_RESOURCE_REQUEST, updateResourceSaga),
     debounce(200, SEARCH_RESOURCE, searchResourceSaga),
   ]);
 }

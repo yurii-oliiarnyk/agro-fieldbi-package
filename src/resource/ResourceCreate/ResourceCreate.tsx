@@ -15,6 +15,7 @@ type ResourcesCreateProps = {
   children: ReactNode;
   labels: {
     submitting: string;
+    success: string;
   };
   name: string;
   beforeSubmit: (values: any) => Promise<any>;
@@ -49,7 +50,7 @@ export const ResourceCreate: React.FC<ResourcesCreateProps> = props => {
 
   const submitHandler = values => {
     beforeSubmit(values).then(values => {
-      return submit({ data: values, onSuccess });
+      return submit({ data: values, onSuccess, successMessage: labels.success });
     });
   };
 

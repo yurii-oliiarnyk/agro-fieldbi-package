@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useNavigation, StackActions } from '@react-navigation/native';
+import { useNavigation, useRoute, StackActions } from '@react-navigation/native';
 import { HeaderButton } from '../../UI/HeaderButton';
 
 type EditButtonType = {
@@ -12,7 +12,8 @@ export const EditButton: React.FC<EditButtonType> = (props): JSX.Element => {
   const { tintColor, name } = props;
 
   const navigation = useNavigation();
-  const onPressHandler = () => navigation.dispatch(StackActions.push(`${name}-edit`));
+  const { params } = useRoute();
+  const onPressHandler = () => navigation.dispatch(StackActions.push(`${name}-edit`, params));
 
   return (
     <HeaderButtons HeaderButtonComponent={HeaderButton}>

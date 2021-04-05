@@ -1,0 +1,1 @@
+export { ResourceEdit } from './ResourceEdit';

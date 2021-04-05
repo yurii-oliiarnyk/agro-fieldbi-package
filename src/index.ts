@@ -45,6 +45,7 @@ export { DrawerNavigator, DrawerButton } from './navigation/DrawerNavigation';
 export { bottomTabOptions, stackNavigationOptions } from './navigation/styles';
 export { ResourcesNavigator } from './resource/ResourcesNavigator';
 export { ResourceCreate } from './resource/ResourceCreate';
+export { ResourceEdit } from './resource/ResourceEdit';
 
 // mapbox
 export { Map } from './mapbox/Map';

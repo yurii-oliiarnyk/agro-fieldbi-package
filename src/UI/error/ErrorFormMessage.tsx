@@ -8,10 +8,12 @@ const styles = StyleSheet.create({
     borderColor: '#ffa39e',
     borderStyle: 'solid',
     borderBottomWidth: 1,
-    marginBottom: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+    marginBottom: 4,
   },
   item: {
-    marginTop: 2,
+    marginVertical: 2,
   },
 });
 
