@@ -10,12 +10,13 @@ const Stack = createStackNavigator();
 type MonitoringCenterNavigatorTypes = {
   fields?: boolean;
   lands?: boolean;
+  onShapeClick?: (shape: any, resourceName: string) => void;
 };
 
 export const MonitoringCenterNavigator: React.FC<MonitoringCenterNavigatorTypes> = (
   props
 ): JSX.Element => {
-  const { fields, lands } = props;
+  const { fields, lands, onShapeClick } = props;
 
   return (
     <Stack.Navigator {...stackNavigationOptions}>
@@ -27,7 +28,12 @@ export const MonitoringCenterNavigator: React.FC<MonitoringCenterNavigatorTypes>
         }}
       >
         {stackProps => (
-          <MonitoringCenter params={stackProps.route.params} fields={fields} lands={lands} />
+          <MonitoringCenter
+            params={stackProps.route.params}
+            fields={fields}
+            lands={lands}
+            onShapeClick={onShapeClick}
+          />
         )}
       </Stack.Screen>
       <Stack.Screen

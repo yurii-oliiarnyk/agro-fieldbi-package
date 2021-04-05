@@ -28,7 +28,7 @@ type ResourcesNavigatorTypes = {
     renderScreen: (entity: any) => ReactNode;
     scrollable?: boolean;
   };
-  editOptions: {
+  editOptions?: {
     headerTitle: string;
     renderScreen: (entity: any) => ReactNode;
     scrollable?: boolean;
@@ -97,10 +97,9 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
 
             return {
               headerTitle,
-              headerRight:
-                editOptions &&
-                  ? buttonProps => <EditButton name={name} tintColor={buttonProps.tintColor} />
-                  : undefined,
+              headerRight: editOptions
+                ? buttonProps => <EditButton name={name} tintColor={buttonProps.tintColor} />
+                : undefined,
             };
           }}
         >

@@ -1,6 +1,6 @@
 {
   "name": "agro-package",
-  "version": "1.0.16",
+  "version": "1.0.20",
   "description": "React-native package for agro projects",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,6 +16,7 @@
     "@react-navigation/drawer": "^5.12.4",
     "@react-navigation/native": "^5.9.2",
     "@react-navigation/stack": "^5.14.2",
+    "@turf/boolean-intersects": "^6.3.0",
     "@turf/turf": "^5.1.6",
     "axios": "^0.21.1",
     "deep-equal": "^2.0.5",

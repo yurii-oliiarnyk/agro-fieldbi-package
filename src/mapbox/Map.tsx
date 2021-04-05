@@ -30,7 +30,6 @@ type MapChildrenProps = {
 type MapTypes = {
   children: (props: MapChildrenProps) => ReactNode;
   cameraSettings: CameraProps;
-  onFlyToUser?: (userPoint: [number, number]) => void;
 };
 
 const styles = StyleSheet.create({
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
 });
 
 export const Map: React.FC<MapTypes> = props => {
-  const { children, cameraSettings, onFlyToUser, ...mapProps } = props;
+  const { children, cameraSettings, ...mapProps } = props;
   const [currentMapStyle, setCurrentMapStyle] = useState<LayerStyleType>('default');
   const [showCadastralLayer, setShowCadastralLayer] = useState(false);
   const [showUserLocation, setShowUserLocation] = useState(false);
@@ -55,10 +54,6 @@ export const Map: React.FC<MapTypes> = props => {
     const location = await getDevicePosition();
 
     if (location) {
-      if (typeof onFlyToUser === 'function') {
-        onFlyToUser(location);
-      }
-
       camera.current?.flyTo(location);
     }
   }, []);

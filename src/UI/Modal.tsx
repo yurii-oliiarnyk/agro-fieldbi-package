@@ -6,9 +6,11 @@ import { COLORS } from '../colors';
 
 type ModalTypes = {
   visible: boolean;
-  setVisible: (visible: boolean) => void;
+  close: () => void;
   children: ReactNode;
   loading?: boolean;
+  submitTitle?: string;
+  onSubmit?: () => void;
 };
 
 const styles = StyleSheet.create({
@@ -25,18 +27,21 @@ const styles = StyleSheet.create({
 });
 
 export const Modal = (props: ModalTypes): JSX.Element => {
-  const { visible, setVisible, children, loading } = props;
-
-  const hideModal = () => setVisible(false);
+  const { visible, close, children, loading, submitTitle, onSubmit } = props;
 
   return (
     <Portal>
-      <Dialog onDismiss={hideModal} visible={visible}>
+      <Dialog onDismiss={close} visible={visible}>
         {children}
         <Dialog.Actions>
-          <Button color={COLORS.MAIN} onPress={hideModal}>
+          <Button color={COLORS.MAIN} onPress={close}>
             {i18n.t('ui.close')}
           </Button>
+          {submitTitle && typeof onSubmit === 'function' && (
+            <Button color={COLORS.MAIN} onPress={onSubmit}>
+              {submitTitle ?? i18n.t('ui.yes')}
+            </Button>
+          )}
         </Dialog.Actions>
         {loading && (
           <View style={styles.view}>
@@ -53,5 +58,3 @@ Modal.Title = Dialog.Title;
 Modal.Content = Dialog.Content;
 
 Modal.Actions = Dialog.Actions;
-
-Modal.ActionsButton = Button;

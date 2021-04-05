@@ -32,7 +32,7 @@ type MonitoringCenterSelectedPolygon = {
 type MonitoringCenterTypes = {
   fields?: boolean;
   lands?: boolean;
-  onFlyToUser?: (userPoint: [number, number], fields: any, lands: any) => void;
+  onShapeClick?: (field: any, resourceName: MonitoringCenterResource) => void;
   params?: {
     selectedPolygon?: MonitoringCenterSelectedPolygon;
     showLandsProps?: boolean;
@@ -44,7 +44,7 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
   const {
     fields: enableFields,
     lands: enableLands,
-    onFlyToUser,
+    onShapeClick,
     params: { selectedPolygon, showLandsProps, contractState } = {},
   } = props;
 
@@ -111,12 +111,18 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
     loadLands();
   }, [enableLands, showLands, loadLands, landsLoaded, landsLoading]);
 
-  const onShapeClick = (resourceName: MonitoringCenterResource) => ({ features }: OnPressEvent) => {
+  const onShapeClickHandler = (resourceName: MonitoringCenterResource) => ({
+    features,
+  }: OnPressEvent) => {
     const [feature] = features;
     const { properties } = feature;
     const { id } = properties as { id?: number };
 
     if (id) {
+      if (typeof onShapeClick === 'function') {
+        onShapeClick(feature, resourceName);
+      }
+
       setSelectedContractState(null);
       setSelected({
         id,
@@ -130,10 +136,6 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
   const fieldsData = useMemo(() => getMapGeoJsonData(fields), [fields]);
   const fieldsShape = useMemo(() => getFieldsNameGeoJsonData(fields), [fields]);
   const landsShape = useMemo(() => getMapGeoJsonData(lands), [lands]);
-
-  const onFlyToUserHandler = userPoint => {
-    onFlyToUser(userPoint, fieldsData, landsShape);
-  };
 
   const activeFieldsShape = useMemo(() => {
     const filteredFeatures = fieldsShape.features.filter(
@@ -252,7 +254,6 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
           },
           bounds,
         }}
-        onFlyToUser={onFlyToUserHandler}
       >
         {mapProps => {
           const { layerStyle } = mapProps;
@@ -264,7 +265,7 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
                   <MapboxGL.ShapeSource
                     id="fields"
                     shape={fieldsData}
-                    onPress={onShapeClick('fields')}
+                    onPress={onShapeClickHandler('fields')}
                   >
                     <MapboxGL.FillLayer id="fields" style={layerStyle.fields.paint} />
                   </MapboxGL.ShapeSource>
@@ -282,7 +283,7 @@ export const MonitoringCenter: React.FC<MonitoringCenterTypes> = props => {
                 <>
                   <MapboxGL.ShapeSource
                     id="lands"
-                    onPress={onShapeClick('lands')}
+                    onPress={onShapeClickHandler('lands')}
                     shape={inActiveLandsShape}
                   >
                     <MapboxGL.FillLayer id="lands" style={layerStyle.lands.paint} />

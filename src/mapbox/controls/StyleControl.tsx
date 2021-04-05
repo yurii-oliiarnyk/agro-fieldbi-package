@@ -32,7 +32,7 @@ export const StyleControl: React.FC<StyleControlTypes> = props => {
         onPress={() => setModalVisible(true)}
         style={styles.icon}
       />
-      <Modal visible={modalVisible} setVisible={setModalVisible}>
+      <Modal visible={modalVisible} close={() => setModalVisible(false)}>
         <Modal.Title>Тип карти</Modal.Title>
         <Modal.Content>
           <RadioboxGroup
