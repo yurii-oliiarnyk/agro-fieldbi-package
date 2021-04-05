@@ -1,7 +1,7 @@
 import React, { useEffect, ReactNode } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Loader } from '../../UI/Loader';
 import { ResourceCreateControls } from './ResourceCreateControls';
 import { ErrorFormMessage, ErrorProvider } from '../../UI/error';
@@ -18,6 +18,7 @@ type ResourcesCreateProps = {
   };
   name: string;
   beforeSubmit: (values: any) => Promise<any>;
+  formikProps?: FormikProps<any>;
 };
 
 export const ResourceCreate: React.FC<ResourcesCreateProps> = props => {
@@ -31,6 +32,7 @@ export const ResourceCreate: React.FC<ResourcesCreateProps> = props => {
     beforeSubmit,
     labels,
     name,
+    formikProps = {},
   } = props;
 
   useEffect(() => {
@@ -52,7 +54,7 @@ export const ResourceCreate: React.FC<ResourcesCreateProps> = props => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={submitHandler}>
+    <Formik initialValues={initialValues} onSubmit={submitHandler} {...formikProps}>
       {({ submitForm }) => {
         if (submitting) {
           return <Loader tip={labels.submitting} />;
