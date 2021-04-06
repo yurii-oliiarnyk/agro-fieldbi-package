@@ -5,6 +5,10 @@ import { DrawerButton, CreateButton, EditButton } from '../navigation/DrawerNavi
 import { ResourceListWrapper } from './ResourcesList/ResourcesListWrapper';
 import { ResourceShow } from './ResourcesShow/ResourceShow';
 import { ResourceCreateProvider, ChildrenPropsType } from './ResourceCreate/ResourceCreateProvider';
+import {
+  ResourceEditProvider,
+  ChildrenPropsType as ResourceEditChildrenPropsType,
+} from './ResourceEdit/ResourceEditProvider';
 import ResourcesListFilter from './ResourcesList/ResourcesListFilter/ResourcesListFilter';
 
 const Stack = createStackNavigator();
@@ -31,8 +35,11 @@ type ResourcesNavigatorTypes = {
   };
   editOptions?: {
     headerTitle: string;
-    renderScreen: (entity: any) => ReactNode;
-    scrollable?: boolean;
+    renderScreen: (entity: ResourceEditChildrenPropsType) => ReactNode;
+    labels: {
+      submitting: string;
+      success: string;
+    };
   };
   createOptions?: {
     headerTitle: string;
@@ -125,7 +132,13 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
             headerTitle: editOptions.headerTitle,
           }}
         >
-          {editOptions.renderScreen}
+          {params => {
+            return (
+              <ResourceEditProvider {...params} labels={editOptions.labels} name={name}>
+                {editOptions.renderScreen}
+              </ResourceEditProvider>
+            );
+          }}
         </Stack.Screen>
       )}
       {createOptions && (
