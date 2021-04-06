@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { Loader } from '../../UI/Loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,6 +21,7 @@ export type ChildrenPropsType = {
   };
   id: number;
   entity: any;
+  name: string;
 };
 
 type ResourceEditProviderProps = {
@@ -30,12 +31,13 @@ type ResourceEditProviderProps = {
     success: string;
   };
   children: (props: ChildrenPropsType) => ReactNode;
+  loadFullEntity?: boolean;
 };
 
 type ResourceEditContainerProps = {
   // from connect
   updateResource: (values: any) => void;
-  fetchResource: (id: number) => void;
+  fetchResource: (id: number, onSuccess: (response: any) => void) => void;
   updateResourceSubmitting: boolean;
   clearResourceErrors: () => void;
   errors: any;
@@ -54,19 +56,25 @@ export const ResourceEditContainer: React.FC<ResourceEditContainerProps> = props
     id,
     entity,
     fetchResource,
+    loadFullEntity,
+    name,
   } = props;
 
-  useEffect(() => {
-    if (!entity) {
-      fetchResource(id);
-    }
-  }, [entity, id]);
+  const [fullEntity, setFullEntity] = useState(null);
 
-  if (!entity) {
+  useEffect(() => {
+    if (!entity || loadFullEntity) {
+      fetchResource(id, response => {
+        setFullEntity(response.data.data);
+      });
+    }
+  }, [id]);
+
+  if ((!loadFullEntity && !entity) || (loadFullEntity && !fullEntity)) {
     return <Loader />;
   }
 
-  return <>{children({ clearErrors, errors, submit, submitting, labels, id, entity })}</>;
+  return <>{children({ clearErrors, errors, submit, submitting, labels, id, entity, name })}</>;
 };
 
 export const ResourceEditProvider: React.FC<ResourceEditProviderProps> = connect(

@@ -134,7 +134,12 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
         >
           {params => {
             return (
-              <ResourceEditProvider {...params} labels={editOptions.labels} name={name}>
+              <ResourceEditProvider
+                {...params}
+                labels={editOptions.labels}
+                name={name}
+                loadFullEntity={loadFullEntity}
+              >
                 {editOptions.renderScreen}
               </ResourceEditProvider>
             );

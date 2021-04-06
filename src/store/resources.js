@@ -479,7 +479,7 @@ export function* updateResourceSaga(action) {
   try {
     const response = yield call(axios.put, `/api/v1/${resourceName}/${id}`, resourceData);
 
-    yield put(updateResourceSuccess(resourceName)({ data: response.data.data }));
+    yield put(updateResourceSuccess(resourceName)(response.data.data));
 
     showMessage({ type: 'success', message: successMessage });
     onSuccess();
