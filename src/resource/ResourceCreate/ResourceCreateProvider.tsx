@@ -10,6 +10,7 @@ export type ChildrenPropsType = {
   clearErrors: () => void;
   labels: {
     submitting: string;
+    success: string;
   };
 };
 
@@ -17,6 +18,7 @@ type ResourceCreateProviderProps = {
   name: string;
   labels: {
     submitting: string;
+    success: string;
   };
   children: (props: ChildrenPropsType) => ReactNode;
 };

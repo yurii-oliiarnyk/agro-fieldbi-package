@@ -15,21 +15,30 @@ import {
 import { ResourceEditControls } from './ResourceEditControls';
 
 type ResourceEditProps = {
-  children: () => ReactNode;
+  children: ReactNode;
   labels: {
     submitting: string;
     success: string;
   };
+  submitting?: boolean;
   name: string;
   initialValues: (entity: any) => any;
   beforeSubmit: (values: any) => Promise<any>;
-  formikProps: any;
+  formikProps?: any;
 };
 
 export const ResourceEdit: React.FC<ResourceEditProps> = props => {
-  const { name, children, labels, beforeSubmit, formikProps = {}, initialValues } = props;
+  const {
+    name,
+    children,
+    submitting,
+    labels,
+    beforeSubmit,
+    formikProps = {},
+    initialValues,
+  } = props;
 
-  const params = useRoute();
+  const params = useRoute<any>();
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
   const { entitieId: id } = params;
@@ -39,7 +48,7 @@ export const ResourceEdit: React.FC<ResourceEditProps> = props => {
   const clearResourceErrorsHandler = clearResourceErrors(name);
   const entity = useSelector(state => resourceSelector(state[name], id));
   const errors = useSelector(state => errorsSelector(state[name].updateResourceErrors));
-  const submitting = useSelector(state => state[name].updateResourceSubmitting);
+  const submittingEntity = useSelector(state => state[name].updateResourceSubmitting);
 
   useEffect(() => {
     if (!entity) {
@@ -73,7 +82,7 @@ export const ResourceEdit: React.FC<ResourceEditProps> = props => {
   return (
     <Formik initialValues={initialValues(entity)} onSubmit={submitHandler} {...formikProps}>
       {({ submitForm }) => {
-        if (submitting) {
+        if (submitting || submittingEntity) {
           return <Loader tip={labels.submitting} />;
         }
 

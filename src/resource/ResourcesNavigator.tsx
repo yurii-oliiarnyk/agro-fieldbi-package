@@ -12,6 +12,7 @@ const Stack = createStackNavigator();
 type ResourcesNavigatorTypes = {
   name: string;
   nameField?: string;
+  loadFullEntity?: boolean;
   listOptions: {
     headerTitle: string;
     renderItem: (item: any) => ReactNode;
@@ -37,6 +38,7 @@ type ResourcesNavigatorTypes = {
     headerTitle: string;
     labels: {
       submitting: string;
+      success: string;
     };
     renderScreen: (props: ChildrenPropsType) => ReactNode;
     hideButton?: boolean;
@@ -52,6 +54,7 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
     showOptions,
     createOptions,
     editOptions,
+    loadFullEntity,
   } = props;
 
   return (
@@ -104,7 +107,12 @@ export const ResourcesNavigator: React.FC<ResourcesNavigatorTypes> = props => {
           }}
         >
           {showScreenProps => (
-            <ResourceShow name={name} scrollable={showOptions.scrollable} {...showScreenProps}>
+            <ResourceShow
+              name={name}
+              scrollable={showOptions.scrollable}
+              loadFullEntity={loadFullEntity}
+              {...showScreenProps}
+            >
               {entity => showOptions.renderScreen(entity)}
             </ResourceShow>
           )}

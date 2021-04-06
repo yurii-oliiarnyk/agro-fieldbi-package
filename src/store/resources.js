@@ -128,9 +128,8 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
         .set('loadingMore', false);
 
     case FETCH_RESOURCE_SUCCESS:
-      return state.update('entities', entities =>
-        arrayToOrderedMap([payload.data.data], EntitiesRecord).merge(entities)
-      );
+      const entity = payload.data.data;
+      return state.setIn(['entities', entity.id], new EntitiesRecord(entity));
 
     case UPDATE_RESOURCE_REQUEST:
       return state.set('updateResourceSubmitting', true);
@@ -186,15 +185,18 @@ export const loadMoreResources = resorcesName => () => {
   };
 };
 
-export const fetchResource = resourceName => id => {
+export const fetchResource = resourceName => (id, onSuccess) => {
   return {
     name: resourceName,
     type: FETCH_RESOURCE_REQUEST,
-    payload: id,
+    payload: {
+      id,
+      onSuccess,
+    },
   };
 };
 
-export const updateResource = resourceName => ({resourceData, id, onSuccess, successMessage}) => {
+export const updateResource = resourceName => ({ resourceData, id, onSuccess, successMessage }) => {
   return {
     name: resourceName,
     type: UPDATE_RESOURCE_REQUEST,
@@ -418,10 +420,12 @@ export function* loadMoreResourcesSaga(action) {
 export function* fetchResourceSaga(action) {
   const resourceName = action.name;
 
-  const id = action.payload;
+  const { id, onSuccess } = action.payload;
 
   try {
     const responce = yield call(axios.get, `/api/v1/${resourceName}/${id}`);
+
+    onSuccess(responce);
 
     yield put({
       name: resourceName,
