@@ -140,7 +140,9 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
         .set('updateResourceErrors', new Map(payload));
 
     case UPDATE_RESOURCE_SUCCESS:
-      return state.setIn(['entities', payload.id], new EntitiesRecord(payload));
+      return state
+        .setIn(['entities', payload.id], new EntitiesRecord(payload))
+        .set('updateResourceSubmitting', false);
 
     case SEARCH_RESOURCE:
       return state.set('search', payload);
@@ -465,10 +467,10 @@ export function* addResourceSaga(action) {
       yield put(createResourceError(name)(error.response.data.errors));
     } else {
       yield put(createResourceError(name)());
-
-      const message = error.response?.data?.message ?? i18n.t('errors.resources.createError');
-      displayHttpError(message, status);
     }
+
+    const message = error.response?.data?.message ?? i18n.t('errors.resources.createError');
+    displayHttpError(message, status);
   }
 }
 
@@ -490,10 +492,10 @@ export function* updateResourceSaga(action) {
       yield put(updateResourceError(resourceName)(error.response.data.errors));
     } else {
       yield put(updateResourceError(resourceName)());
-
-      const message = error.response?.data?.message ?? i18n.t('errors.resources.updateError');
-      displayHttpError(message, status);
     }
+
+    const message = error.response?.data?.message ?? i18n.t('errors.resources.updateError');
+    displayHttpError(message, status);
   }
 }
 
