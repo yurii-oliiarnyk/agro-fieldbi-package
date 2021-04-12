@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   },
   value: {
     color: COLORS.BLACK,
-    textAlign: 'right',
   },
   link: {
     color: COLORS.MAIN,
