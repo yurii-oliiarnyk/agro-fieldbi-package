@@ -1,7 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useState, useCallback } from 'react';
 import { Loader } from '../../UI/Loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   updateResource,
   errorsSelector,
@@ -62,15 +63,25 @@ export const ResourceEditContainer: React.FC<ResourceEditContainerProps> = props
 
   const [fullEntity, setFullEntity] = useState(null);
 
-  useEffect(() => {
-    if (!entity || loadFullEntity) {
-      fetchResource(id, response => {
-        setFullEntity(response.data.data);
-      });
-    }
-  }, [id]);
+  useFocusEffect(
+    useCallback(() => {
+      if (loadFullEntity) {
+        setFullEntity(null);
 
-  if ((!loadFullEntity && !entity) || (loadFullEntity && !fullEntity)) {
+        fetchResource(id, response => {
+          setFullEntity(response.data.data);
+        });
+
+        return;
+      }
+
+      if (!entity) {
+        fetchResource(id, () => null);
+      }
+    }, [id])
+  );
+
+  if (!entity || !fullEntity) {
     return <Loader />;
   }
 
