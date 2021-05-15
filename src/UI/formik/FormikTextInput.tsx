@@ -18,7 +18,7 @@ export const FormikTextInput: React.FC<FormikTextInputTypes> = props => {
           setFieldValue(name, value);
         };
 
-        return <TextInput value={value + ''} onChangeText={handleChange} {...restProps} />;
+        return <TextInput value={value} onChangeText={handleChange} {...restProps} />;
       }}
     </Field>
   );

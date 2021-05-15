@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useCallback } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 import { Loader } from '../../UI/Loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,7 +38,7 @@ type ResourceEditProviderProps = {
 type ResourceEditContainerProps = {
   // from connect
   updateResource: (values: any) => void;
-  fetchResource: (id: number, onSuccess: (response: any) => void) => void;
+  fetchResource: (id: number) => void;
   updateResourceSubmitting: boolean;
   clearResourceErrors: () => void;
   errors: any;
@@ -57,31 +57,18 @@ export const ResourceEditContainer: React.FC<ResourceEditContainerProps> = props
     id,
     entity,
     fetchResource,
-    loadFullEntity,
     name,
   } = props;
 
-  const [fullEntity, setFullEntity] = useState(null);
-
   useFocusEffect(
     useCallback(() => {
-      if (loadFullEntity) {
-        setFullEntity(null);
-
-        fetchResource(id, response => {
-          setFullEntity(response.data.data);
-        });
-
-        return;
-      }
-
       if (!entity) {
-        fetchResource(id, () => null);
+        fetchResource(id);
       }
     }, [id])
   );
 
-  if (!entity || !fullEntity) {
+  if (!entity) {
     return <Loader />;
   }
 
@@ -89,14 +76,14 @@ export const ResourceEditContainer: React.FC<ResourceEditContainerProps> = props
 };
 
 export const ResourceEditProvider: React.FC<ResourceEditProviderProps> = connect(
-  (state, { name, route }) => {
+  (state, { name, route, loadFullEntity }) => {
     const id = route?.params?.entitieId;
 
     return {
       updateResourceSubmitting: state[name].updateResourceSubmitting,
       errors: errorsSelector(state[name].updateResourceErrors),
       id,
-      entity: resourceSelector(state[name], id),
+      entity: resourceSelector(state[name], id, loadFullEntity),
     };
   },
   (dispatch, { name }) => {

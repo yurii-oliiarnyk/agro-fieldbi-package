@@ -47,6 +47,7 @@ const START_PAGE = 1;
 
 export const ReducerRecord = Record({
   entities: new OrderedMap({}),
+  detailsEntities: new OrderedMap({}),
   total: 0,
   page: START_PAGE,
   loading: false,
@@ -110,6 +111,7 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
     case REFRESH_RESOURCES_SUCCESS:
       return state
         .set('entities', arrayToOrderedMap(payload.data.data, EntitiesRecord))
+        .set('detailsEntities', new OrderedMap({}))
         .set('total', payload.total)
         .set('refreshing', false);
 
@@ -129,7 +131,9 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
 
     case FETCH_RESOURCE_SUCCESS:
       const entity = payload.data.data;
-      return state.setIn(['entities', entity.id], new EntitiesRecord(entity));
+      return state
+        .setIn(['entities', entity.id], new EntitiesRecord(entity))
+        .setIn(['detailsEntities', entity.id], new EntitiesRecord(entity));
 
     case UPDATE_RESOURCE_REQUEST:
       return state.set('updateResourceSubmitting', true);
@@ -142,6 +146,7 @@ export default function reducer(state = new ReducerRecord(), action, EntitiesRec
     case UPDATE_RESOURCE_SUCCESS:
       return state
         .setIn(['entities', payload.id], new EntitiesRecord(payload))
+        .setIn(['detailsEntities', payload.id], new EntitiesRecord(payload))
         .set('updateResourceSubmitting', false);
 
     case SEARCH_RESOURCE:
@@ -187,13 +192,12 @@ export const loadMoreResources = resorcesName => () => {
   };
 };
 
-export const fetchResource = resourceName => (id, onSuccess) => {
+export const fetchResource = resourceName => id => {
   return {
     name: resourceName,
     type: FETCH_RESOURCE_REQUEST,
     payload: {
       id,
-      onSuccess,
     },
   };
 };
@@ -277,8 +281,8 @@ export const clearResourceErrors = resourceName => () => {
  * Selectors
  */
 
-export const resourceSelector = (state, id) => {
-  return state.getIn(['entities', parseInt(id)]);
+export const resourceSelector = (state, id, details) => {
+  return state.getIn([details ? 'detailsEntities' : 'entities', parseInt(id)]);
 };
 
 export const pageSelector = resourceName => state => state[resourceName].page;
@@ -422,12 +426,10 @@ export function* loadMoreResourcesSaga(action) {
 export function* fetchResourceSaga(action) {
   const resourceName = action.name;
 
-  const { id, onSuccess } = action.payload;
+  const { id } = action.payload;
 
   try {
     const responce = yield call(axios.get, `/api/v1/${resourceName}/${id}`);
-
-    onSuccess(responce);
 
     yield put({
       name: resourceName,

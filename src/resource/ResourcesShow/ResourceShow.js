@@ -8,42 +8,28 @@ import { Loader } from '../../UI/Loader';
 export const ResourceShow = props => {
   const { children, route, name, scrollable, loadFullEntity } = props;
 
-  const [fullEntity, setFullEntity] = useState(null);
-
   const {
     params: { entitieId: id },
   } = route;
 
   const dispatch = useDispatch();
-  const entity = useSelector(state => resourceSelector(state[name], id));
+  const entity = useSelector(state => resourceSelector(state[name], id, loadFullEntity));
 
   useFocusEffect(
     useCallback(() => {
-      if (loadFullEntity) {
-        setFullEntity(null);
-
-        dispatch(
-          fetchResource(name)(id, response => {
-            setFullEntity(response.data.data);
-          })
-        );
-
-        return;
-      }
-
       if (!entity) {
-        dispatch(fetchResource(name)(id, () => null));
+        dispatch(fetchResource(name)(id));
       }
-    }, [])
+    }, [id])
   );
 
-  if ((!loadFullEntity && !entity) || (loadFullEntity && !fullEntity)) {
+  if (!entity) {
     return <Loader />;
   }
 
   if (scrollable) {
-    return <ScrollView>{children(fullEntity ?? entity)}</ScrollView>;
+    return <ScrollView>{children(entity)}</ScrollView>;
   }
 
-  return <View>{children(fullEntity ?? entity)}</View>;
+  return <View>{children(entity)}</View>;
 };

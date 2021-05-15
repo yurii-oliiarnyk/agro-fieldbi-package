@@ -17,7 +17,6 @@ type ResourceEditProps = {
   name: string;
   initialValues: (entity: any) => any;
   beforeSubmit: (values: any) => Promise<any>;
-  formikProps?: any;
   clearErrors: () => void;
   id: number;
   entity: any;
@@ -32,7 +31,6 @@ export const ResourceEdit: React.FC<ResourceEditProps> = props => {
     labels,
     submit,
     beforeSubmit,
-    formikProps = {},
     initialValues,
     id,
     clearErrors,
@@ -64,7 +62,7 @@ export const ResourceEdit: React.FC<ResourceEditProps> = props => {
   };
 
   return (
-    <Formik initialValues={initialValues(entity)} onSubmit={submitHandler} {...formikProps}>
+    <Formik initialValues={initialValues(entity)} onSubmit={submitHandler} enableReinitialize>
       {({ submitForm }) => {
         if (submitting) {
           return <Loader tip={labels.submitting} />;
