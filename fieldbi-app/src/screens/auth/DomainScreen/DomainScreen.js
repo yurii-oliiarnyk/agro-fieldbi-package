@@ -4,7 +4,7 @@ import { showMessage } from 'react-native-flash-message';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Container, Content, Form, H1 } from 'native-base';
 import i18n from 'i18n-js';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import DomainScreenInput from './DomainScreenInput';
 import AppLoader from '../../../components/AppLoader';

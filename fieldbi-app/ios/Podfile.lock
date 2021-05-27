@@ -267,8 +267,8 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
-  - RNCAsyncStorage (1.11.0):
-    - React
+  - RNCAsyncStorage (1.15.4):
+    - React-Core
   - RNCMaskedView (0.1.10):
     - React
   - RNDateTimePicker (2.5.0):
@@ -328,7 +328,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -418,7 +418,7 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
-    :path: "../node_modules/@react-native-community/async-storage"
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
   RNDateTimePicker:
@@ -479,7 +479,7 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  RNCAsyncStorage: d059c3ee71738c39834a627476322a5a8cd5bf36
+  RNCAsyncStorage: f47a7e8f927f7c9da947491fc55752eb9ce17f2d
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNDateTimePicker: a8000390e7a4fe23d9f36492ded9282640721c82
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
@@ -492,6 +492,6 @@ SPEC CHECKSUMS:
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: c4c7335c749adfe9544e650163e4ec7a0489d2ac
+PODFILE CHECKSUM: 2a476015ef80b2c3f0255d3717d1f71db58008c8
 
 COCOAPODS: 1.10.1

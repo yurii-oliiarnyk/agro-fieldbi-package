@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 import { eventChannel } from 'redux-saga';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { all, takeEvery, call, put, take } from 'redux-saga/effects';
 
 import axios from '../../axios/axios';
