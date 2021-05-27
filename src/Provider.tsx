@@ -3,19 +3,18 @@ import 'react-native-gesture-handler';
 import { Provider as PaperProvider } from 'react-native-paper';
 import FlashMessage from 'react-native-flash-message';
 import { NavigationContainer } from '@react-navigation/native';
-import { setTranslations, TranslationsTypes } from './translations';
+import { setTranslations } from './translations';
 
 type ProviderProps = {
   children: ReactNode;
-  translations: TranslationsTypes;
 };
 
 export const Provider: React.FC<ProviderProps> = props => {
-  const { children, translations } = props;
+  const { children } = props;
 
   useEffect(() => {
-    setTranslations(translations);
-  }, [translations]);
+    setTranslations();
+  }, []);
 
   return (
     <PaperProvider>
