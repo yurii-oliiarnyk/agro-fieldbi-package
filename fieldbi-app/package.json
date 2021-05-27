@@ -25,6 +25,7 @@
     "@sentry/react-native": "^1.7.2",
     "@turf/boolean-intersects": "^6.0.2",
     "@turf/turf": "^5.1.6",
+    "agro-package": "link:../",
     "appcenter": "2.6.1",
     "appcenter-analytics": "2.6.1",
     "appcenter-crashes": "2.6.1",

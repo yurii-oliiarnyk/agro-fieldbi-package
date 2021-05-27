@@ -24,7 +24,7 @@ const Profile = props => {
       key: 'email'
     },
     {
-      name: i18n.t('user.roles'),
+      name: i18n.t('user.role'),
       value: getRoleName(user.roles[0]),
       key: 'roles'
     },

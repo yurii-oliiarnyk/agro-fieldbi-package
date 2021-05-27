@@ -34,7 +34,7 @@ const AuthorizedNavigator = () => {
       />
       <Drawer.Screen
         name={screens.MonitoringCenterNavigator}
-        options={{ drawerLabel: i18n.t('pages.monitoringCenter') }}
+        options={{ drawerLabel: i18n.t('pages.map') }}
         component={MonitoringCenterNavigator}
       />
       <Drawer.Screen
