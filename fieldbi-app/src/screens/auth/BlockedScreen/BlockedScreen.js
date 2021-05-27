@@ -22,10 +22,10 @@ const BlockedScreen = props => {
       contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
     >
       <Image style={{ width: imageWidth, maxWidth: '100%', height: imageHeight }} />
-      <Text style={styles.title}>{i18n.t('blockedUser.title')}</Text>
-      <Text style={styles.description}>{i18n.t('blockedUser.description')}</Text>
+      <Text style={styles.title}>{i18n.t('authorization.blockedUser.title')}</Text>
+      <Text style={styles.description}>{i18n.t('authorization.blockedUser.description')}</Text>
       <AppButton type="outlined" onPress={() => navigation.navigate(screens.SignIn)}>
-        {i18n.t('auth.signOut')}
+        {i18n.t('authorization.auth.signOut')}
       </AppButton>
     </ScrollView>
   );

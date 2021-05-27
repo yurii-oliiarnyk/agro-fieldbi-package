@@ -50,7 +50,7 @@ const AuthorizationScreen = props => {
       let errorDescription = `${code} - ${message}`;
 
       if (code === 401) {
-        errorDescription = i18n.t('auth.error_login');
+        errorDescription = i18n.t('authorization.auth.badCredentials');
       }
 
       showMessage({
@@ -76,7 +76,7 @@ const AuthorizationScreen = props => {
 
       <View>
         <View>
-          <Text style={styles.title}>{i18n.t('auth.signIn')}</Text>
+          <Text style={styles.title}>{i18n.t('authorization.auth.signIn')}</Text>
           <View>
             <View style={styles.iconLeft}>
               <MaterialCommunityIcons name="email-outline" {...VARIABLES.inputIcon} />
@@ -84,7 +84,7 @@ const AuthorizationScreen = props => {
             <TextInput
               style={styles.input}
               placeholderTextColor={COLORS.GREY}
-              placeholder={i18n.t('auth.email')}
+              placeholder={i18n.t('authorization.auth.emailPlaceholder')}
               value={username}
               onChangeText={setUsername}
               textContentType="emailAddress"
@@ -108,7 +108,7 @@ const AuthorizationScreen = props => {
               ref={passwordRef}
               value={password}
               onChangeText={setPassword}
-              placeholder={i18n.t('auth.password')}
+              placeholder={i18n.t('authorization.auth.passwordPlaceholder')}
               textContentType="password"
               autoCapitalize="none"
               autoCompleteType="password"
@@ -130,7 +130,7 @@ const AuthorizationScreen = props => {
             )}
           </View>
           <AppButton style={{ marginTop: 16 }} onPress={() => onSubmitHandler()}>
-            {i18n.t('auth.signIn')}
+            {i18n.t('authorization.auth.signIn')}
           </AppButton>
         </View>
         <View style={{ marginTop: 16 }}>

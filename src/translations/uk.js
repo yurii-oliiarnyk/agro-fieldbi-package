@@ -132,10 +132,15 @@ const authorization = {
     change: 'Змінити робочий простір',
   },
   auth: {
-    signInTitle: 'Увійти',
+    signIn: 'Увійти',
+    signOut: 'Вийти',
     emailPlaceholder: 'E-mail',
     passwordPlaceholder: 'Password',
     badCredentials: "Неправильне ім'я користувача або пароль",
+  },
+  blockedUser: {
+    title: 'Доступ заблоковано(',
+    description: 'Ваш обліковий запис заблокований Адміністратором акаунту',
   },
 };
 
@@ -571,11 +576,6 @@ const otherEntities = {
   edrpouSearch: 'Пошук по ЄДРПОУ',
 };
 
-const blockedUser = {
-  title: 'Доступ заблоковано(',
-  description: 'Ваш обліковий запис заблокований Адміністратором акаунту',
-};
-
 export default {
   ui,
   generals,
@@ -595,7 +595,6 @@ export default {
   agronomistConclusion,
   landPurpose,
   landType,
-  blockedUser,
   otherEntities,
   tasks,
   analytics,

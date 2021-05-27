@@ -78,7 +78,7 @@ export const LoginScreen = (): JSX.Element => {
 
   return (
     <AuthorizationView>
-      <Typography.H1>{i18n.t('authorization.auth.signInTitle')}</Typography.H1>
+      <Typography.H1>{i18n.t('authorization.auth.signIn')}</Typography.H1>
       <View style={{ marginVertical: 8 }}>
         <View style={styles.iconLeft}>
           <MaterialCommunityIcons name="email-outline" {...iconStyles} />
@@ -132,7 +132,7 @@ export const LoginScreen = (): JSX.Element => {
       </View>
       <View style={{ marginTop: 24 }}>
         <Button onPress={onSubmitHandler} loading={signInLoading}>
-          {i18n.t('authorization.auth.signInTitle')}
+          {i18n.t('authorization.auth.signIn')}
         </Button>
       </View>
       <View style={styles.buttonWrapper}>

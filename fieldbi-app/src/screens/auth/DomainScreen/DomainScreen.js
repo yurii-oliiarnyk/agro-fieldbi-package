@@ -74,7 +74,7 @@ const DomainScreen = props => {
         setLoading(false);
 
         showMessage({
-          description: i18n.t('domain.error'),
+          description: i18n.t('authorization.instance.notValid'),
           message: i18n.t('errors.error'),
           type: 'danger'
         });
@@ -96,7 +96,7 @@ const DomainScreen = props => {
         </View>
 
         <Form>
-          <H1 style={{ fontWeight: 'bold' }}>{i18n.t('domain.title')}</H1>
+          <H1 style={{ fontWeight: 'bold' }}>{i18n.t('authorization.instance.title')}</H1>
 
           <View
             style={{
@@ -123,20 +123,20 @@ const DomainScreen = props => {
             {mode === 'show' && (
               <TouchableOpacity onPress={() => setMode('edit')}>
                 <Text style={{ color: '#00A1FF', fontSize: 16, lineHeight: 26 }}>
-                  {i18n.t('domain.change')}
+                  {i18n.t('authorization.instance.change')}
                 </Text>
               </TouchableOpacity>
             )}
           </View>
 
-          <Text style={{ fontSize: 14 }}>{i18n.t('domain.description')}</Text>
+          <Text style={{ fontSize: 14 }}>{i18n.t('authorization.instance.help')}</Text>
 
           <AppButton
             disabled={!isValueValid(value)}
             style={{ marginTop: 40 }}
             onPress={() => onSubmitHandler()}
           >
-            {i18n.t('domain.next')}
+            {i18n.t('authorization.instance.submit')}
           </AppButton>
         </Form>
       </Content>
