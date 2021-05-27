@@ -1,0 +1,12 @@
+@import '../../../scss/mixins.scss';
+
+.user-info {
+  display: flex;
+  align-items: center;
+
+  &__name {
+    margin-left: 8px;
+    color: #202030;
+    @include truncatesLines(1);
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "fieldbi",
+  "displayName": "fieldbi",
+  "slug": "fieldbi",
+  "version": "0.0.1",
+  "platforms": ["ios", "android"],
+  "orientation": "portrait",
+  "icon": "./src/assets/images/icon.png",
+  "splash": {
+    "image": "./src/assets/images/splash.png",
+    "resizeMode": "cover",
+    "backgroundColor": "#ffffff"
+  },
+  "updates": {
+    "fallbackToCacheTimeout": 0
+  }
+}
